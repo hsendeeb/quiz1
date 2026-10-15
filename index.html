@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Basics Quiz</title>
+  <meta name="description" content="A beginner multiple-choice quiz about basic HTML: images, bold text, tables and lists." />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
+          },
+          keyframes: {
+            'fade-in-up': {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          },
+          animation: {
+            'fade-in-up': 'fade-in-up .35s ease-out both'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Nicer tap behaviour on phones */
+    html { -webkit-tap-highlight-color: transparent; }
+    button { touch-action: manipulation; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-indigo-100 font-sans text-slate-800 antialiased">
+  <div class="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-4 py-6 sm:px-6 sm:py-10">
+
+    <!-- ===== HEADER ===== -->
+    <header class="mb-5 text-center sm:mb-8">
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
+        Web Development · Lesson 1
+      </span>
+      <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+        HTML Basics Quiz
+      </h1>
+      <p class="mx-auto mt-2 max-w-md text-sm text-slate-500 sm:text-base">
+        Images · Bold text · Tables · Lists
+      </p>
+    </header>
+
+    <main class="flex-1">
+
+      <!-- ============================================================= -->
+      <!-- SCREEN 1 — START                                              -->
+      <!-- ============================================================= -->
+      <section id="startScreen" class="hidden animate-fade-in-up">
+        <div class="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-8">
+
+          <div class="flex items-center gap-3">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-2xl shadow-lg shadow-indigo-500/30">
+              🖥️
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-slate-900 sm:text-xl">Ready to test your HTML?</h2>
+              <p class="text-sm text-slate-500"><span id="questionCountLabel">12</span> multiple-choice questions</p>
+            </div>
+          </div>
+
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-lg bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-sky-200">&lt;img&gt; images</span>
+            <span class="rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">&lt;b&gt; / &lt;strong&gt; bold</span>
+            <span class="rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">&lt;table&gt; tables</span>
+            <span class="rounded-lg bg-fuchsia-50 px-2.5 py-1 text-xs font-semibold text-fuchsia-700 ring-1 ring-fuchsia-200">&lt;ul&gt; / &lt;ol&gt; lists</span>
+          </div>
+
+          <ul class="mt-6 space-y-2.5 text-sm text-slate-600">
+            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> One answer per question. The answer is checked right away.</li>
+            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> Your score is shown at the end, with a full review.</li>
+            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> No time limit — take your time and think.</li>
+            <li class="flex gap-2.5"><span class="text-rose-500">🔒</span> You can only take this quiz <strong>once</strong> on this browser.</li>
+          </ul>
+
+          <button
+            id="startBtn"
+            type="button"
+            class="mt-5 w-full rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 active:scale-[.99]"
+          >
+            Start the quiz →
+          </button>
+
+          <p class="mt-3 text-center text-xs text-slate-400">
+            Your result is saved in this browser only, so the quiz stays locked after one attempt.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SCREEN 2 — QUIZ                                               -->
+      <!-- ============================================================= -->
+      <section id="quizScreen" class="hidden">
+        <!-- progress -->
+        <div class="mb-4">
+          <div class="mb-2 flex items-center justify-between text-xs font-semibold text-slate-500">
+            <span id="questionCounter">Question 1 of 12</span>
+            <span id="questionProgressLabel">0%</span>
+          </div>
+          <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+            <div id="progressBar" class="h-full w-0 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500 ease-out"></div>
+          </div>
+        </div>
+
+        <!-- question card -->
+        <div id="questionCard" class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-7">
+          <h2 id="questionText" class="text-base font-bold leading-snug text-slate-900 sm:text-xl"></h2>
+          <div id="optionsList" class="mt-5 space-y-3"></div>
+
+          <!-- feedback -->
+          <div id="feedbackBox" class="mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4" role="status" aria-live="polite">
+            <p id="feedbackTitle" class="flex items-center gap-2 font-bold"></p>
+            <p id="feedbackText" class="mt-1.5 leading-relaxed"></p>
+          </div>
+        </div>
+
+        <button
+          id="nextBtn"
+          type="button"
+          disabled
+          class="mt-4 w-full rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition enabled:hover:bg-indigo-700 enabled:focus:ring-4 enabled:focus:ring-indigo-500/30 enabled:active:scale-[.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
+        >
+          Next question
+        </button>
+        <p class="mt-2 text-center text-xs text-slate-400">
+          Tip: press <kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">1</kbd>–<kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">4</kbd> to choose, <kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd> for next.
+        </p>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- SCREEN 3 — RESULT / LOCKED                                    -->
+      <!-- ============================================================= -->
+      <section id="resultScreen" class="hidden">
+        <div id="lockedBanner" class="mb-4 hidden items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+          <span class="text-lg">🔒</span>
+          <p>
+            <strong>You have already completed this quiz.</strong><br class="hidden sm:block" />
+            Each student may take the quiz only once. This is your saved result.
+          </p>
+        </div>
+
+        <div id="resultCard" class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-8">
+          <div class="relative mx-auto h-32 w-32">
+            <svg viewBox="0 0 120 120" class="h-32 w-32 -rotate-90">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="10" />
+              <circle
+                id="scoreCircle"
+                cx="60" cy="60" r="52" fill="none"
+                stroke="#6366f1" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="326.73" stroke-dashoffset="326.73"
+                style="transition: stroke-dashoffset 1s ease-out"
+              />
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span id="scorePercent" class="text-3xl font-extrabold tracking-tight text-slate-900">0%</span>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Score</span>
+            </div>
+          </div>
+
+          <p id="resultName" class="mt-4 text-center text-sm font-semibold text-slate-500"></p>
+          <p id="scoreText" class="text-center text-xl font-extrabold text-slate-900 sm:text-2xl"></p>
+          <p id="resultMessage" class="mx-auto mt-2 max-w-sm text-center text-sm leading-relaxed text-slate-600"></p>
+
+          <div class="mt-6 flex flex-col gap-2.5 sm:flex-row">
+            <button
+              id="reviewToggle"
+              type="button"
+              class="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+            >
+              Show answers review
+            </button>
+            <button
+              id="printBtn"
+              type="button"
+              class="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+            >
+              Save / print result
+            </button>
+          </div>
+        </div>
+
+        <div id="reviewSection" class="mt-4 hidden">
+          <h3 class="mb-3 px-1 text-sm font-bold uppercase tracking-wider text-slate-500">Review</h3>
+          <div id="reviewList" class="space-y-3"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="mt-8 text-center">
+      <p class="text-xs text-slate-400">HTML Basics Quiz · one attempt per browser</p>
+      <button id="resetBtn" type="button" class="mt-2 text-xs text-slate-400 underline decoration-dotted underline-offset-2 transition hover:text-rose-500">
+        Teacher: unlock / reset this browser
+      </button>
+    </footer>
+  </div>
+
+  <!-- =========================================================================
+       QUIZ DATA — edit this array to add or change questions.
+       answer = the index (0 = first option) of the correct answer.
+       ========================================================================= -->
+  <script>
+    const QUESTIONS = [
+      {
+        text: "Which HTML tag is used to display an image on a web page?",
+        options: ["<image>", "<img>", "<imgs>", "<src>"],
+        answer: 1,
+        explain: "The <img> tag puts an image on the page. <image> is not a real HTML tag, and <src> is an attribute, not a tag."
+      },
+      {
+        text: "Which attribute of the <img> tag tells the browser where the image file is located?",
+        options: ["href", "src", "link", "path"],
+        answer: 1,
+        explain: 'src means "source". Example: <img src="cat.jpg">. The href attribute is used by links, not by images.'
+      },
+      {
+        text: "If an image cannot load, which attribute shows a short text instead of the image?",
+        options: ["alt", "title", "caption", "text"],
+        answer: 0,
+        explain: 'alt means "alternative text". It appears when the image fails to load, and screen readers read it aloud.'
+      },
+      {
+        text: "Which tag makes text appear in bold?",
+        options: ["<bold>", "<b>", "<bb>", "<black>"],
+        answer: 1,
+        explain: "<b> makes text bold. There is no <bold> tag in HTML — a very common mistake!"
+      },
+      {
+        text: "Which tag marks text as important? Browsers display it in bold.",
+        options: ["<important>", "<em>", "<strong>", "<big>"],
+        answer: 2,
+        explain: "<strong> means \"this text is important\" and looks bold. <em> means emphasis and looks italic."
+      },
+      {
+        text: "Which tag creates (starts) a table?",
+        options: ["<table>", "<tab>", "<grid>", "<t>"],
+        answer: 0,
+        explain: "All the rows and cells of a table must be written inside <table> ... </table>."
+      },
+      {
+        text: "Which tag creates a row (a line) inside a table?",
+        options: ["<td>", "<tr>", "<th>", "<row>"],
+        answer: 1,
+        explain: "tr = table row. Each row is written with <tr> and holds the cells inside it."
+      },
+      {
+        text: "Which tag creates a normal data cell inside a table row?",
+        options: ["<tc>", "<cell>", "<td>", "<tr>"],
+        answer: 2,
+        explain: "td = table data. Example: <tr><td>Ahmed</td><td>15</td></tr>"
+      },
+      {
+        text: "Which tag creates a table heading cell? It is bold and centered by default.",
+        options: ["<td>", "<head>", "<th>", "<heading>"],
+        answer: 2,
+        explain: "th = table header. It is normally used in the first row of the table."
+      },
+      {
+        text: "Which tag creates a bulleted list (with dots)?",
+        options: ["<ol>", "<list>", "<ul>", "<bl>"],
+        answer: 2,
+        explain: "ul = unordered list (order does not matter), so it shows bullets. Each point inside it uses <li>."
+      },
+      {
+        text: "Which tag creates a numbered list (1, 2, 3 ...)?",
+        options: ["<ol>", "<ul>", "<nl>", "<dl>"],
+        answer: 0,
+        explain: "ol = ordered list, so the browser numbers the items for you automatically."
+      },
+      {
+        text: "Which tag creates one single item inside a list?",
+        options: ["<item>", "<li>", "<ul>", "<point>"],
+        answer: 1,
+        explain: "li = list item. It is used inside both <ul> and <ol>."
+      }
+    ];
+  </script>
+
+  <!-- =========================================================================
+       QUIZ LOGIC
+       ========================================================================= -->
+  <script>
+    (function () {
+      "use strict";
+
+      const STORAGE_KEY = "htmlBasicsQuiz:result:v1";
+      const CIRCUMFERENCE = 326.73; // 2 * PI * 52
+
+      /* ---------- element refs ---------- */
+      const startScreen   = document.getElementById("startScreen");
+      const quizScreen    = document.getElementById("quizScreen");
+      const resultScreen  = document.getElementById("resultScreen");
+
+      const startBtn      = document.getElementById("startBtn");
+      const resetBtn      = document.getElementById("resetBtn");
+
+      const progressBar   = document.getElementById("progressBar");
+      const counterEl     = document.getElementById("questionCounter");
+      const progressLabel = document.getElementById("questionProgressLabel");
+      const questionCard  = document.getElementById("questionCard");
+      const questionText  = document.getElementById("questionText");
+      const optionsList   = document.getElementById("optionsList");
+      const feedbackBox   = document.getElementById("feedbackBox");
+      const feedbackTitle = document.getElementById("feedbackTitle");
+      const feedbackText  = document.getElementById("feedbackText");
+      const nextBtn       = document.getElementById("nextBtn");
+
+      const lockedBanner  = document.getElementById("lockedBanner");
+      const resultCard    = document.getElementById("resultCard");
+      const scoreCircle   = document.getElementById("scoreCircle");
+      const scorePercent  = document.getElementById("scorePercent");
+      const scoreText     = document.getElementById("scoreText");
+      const resultName    = document.getElementById("resultName");
+      const resultMessage = document.getElementById("resultMessage");
+      const reviewToggle  = document.getElementById("reviewToggle");
+      const reviewSection = document.getElementById("reviewSection");
+      const reviewList    = document.getElementById("reviewList");
+      const printBtn      = document.getElementById("printBtn");
+
+      /* ---------- state ---------- */
+      let currentIndex = 0;
+      let answers = new Array(QUESTIONS.length).fill(-1);
+      let hasAnswered = false;
+      let optionButtons = [];
+
+      const LETTERS = ["A", "B", "C", "D", "E", "F"];
+
+      /* ---------- class strings (assigned whole, so Tailwind classes never clash) ---------- */
+      const OPTION_BASE = "flex w-full items-center gap-3 rounded-xl border bg-white p-3.5 text-left transition sm:p-4";
+      const OPTION_IDLE = OPTION_BASE + " border-slate-200 cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/70 active:scale-[.99]";
+      const OPTION_OK   = OPTION_BASE + " border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/25";
+      const OPTION_BAD  = OPTION_BASE + " border-rose-500 bg-rose-50 ring-2 ring-rose-500/25";
+      const OPTION_DIM  = OPTION_BASE + " border-slate-200 opacity-45";
+
+      const BADGE_BASE = "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm font-bold";
+      const BADGE_IDLE = BADGE_BASE + " border-slate-300 bg-slate-100 text-slate-500";
+      const BADGE_OK   = BADGE_BASE + " border-emerald-500 bg-emerald-500 text-white";
+      const BADGE_BAD  = BADGE_BASE + " border-rose-500 bg-rose-500 text-white";
+
+      const FEEDBACK_OK  = "mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-sm sm:p-4";
+      const FEEDBACK_BAD = "mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-sm sm:p-4";
+
+      /* ---------- helpers ---------- */
+      function safeGet(key) {
+        try { return localStorage.getItem(key); } catch (e) { return null; }
+      }
+      function safeSet(key, value) {
+        try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
+      }
+      function safeRemove(key) {
+        try { localStorage.removeItem(key); return true; } catch (e) { return false; }
+      }
+
+      function loadSavedResult() {
+        const raw = safeGet(STORAGE_KEY);
+        if (!raw) return null;
+        try {
+          const data = JSON.parse(raw);
+          // If the questions changed, allow a fresh attempt.
+          if (!data || data.total !== QUESTIONS.length) return null;
+          return data;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function show(screen) {
+        [startScreen, quizScreen, resultScreen].forEach(function (s) {
+          s.classList.add("hidden");
+        });
+        screen.classList.remove("hidden");
+        resetBtn.classList.toggle("hidden", screen === quizScreen);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function replayAnimation(el, cls) {
+        el.classList.remove(cls);
+        void el.offsetWidth; // force reflow so the animation restarts
+        el.classList.add(cls);
+      }
+
+      function plural(n, word) {
+        return n + " " + word + (n === 1 ? "" : "s");
+      }
+
+      /* =========================================================
+         START
+         ========================================================= */
+      document.getElementById("questionCountLabel").textContent = QUESTIONS.length;
+
+      startBtn.addEventListener("click", function () {
+        currentIndex = 0;
+        answers = new Array(QUESTIONS.length).fill(-1);
+        show(quizScreen);
+        renderQuestion();
+      });
+
+      /* =========================================================
+         QUESTION RENDERING
+         ========================================================= */
+      function renderQuestion() {
+        const q = QUESTIONS[currentIndex];
+        hasAnswered = false;
+
+        counterEl.textContent = "Question " + (currentIndex + 1) + " of " + QUESTIONS.length;
+        const pct = Math.round((currentIndex / QUESTIONS.length) * 100);
+        progressBar.style.width = pct + "%";
+        progressLabel.textContent = pct + "%";
+
+        questionText.textContent = q.text;
+
+        feedbackBox.classList.add("hidden");
+        feedbackBox.className = "mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4";
+
+        nextBtn.disabled = true;
+        nextBtn.textContent = (currentIndex === QUESTIONS.length - 1) ? "See my score" : "Next question";
+
+        optionsList.innerHTML = "";
+        optionButtons = [];
+
+        q.options.forEach(function (option, index) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = OPTION_IDLE;
+
+          const badge = document.createElement("span");
+          badge.className = BADGE_IDLE;
+          badge.textContent = LETTERS[index] || String(index + 1);
+
+          const label = document.createElement("span");
+          label.className = "font-mono text-[15px] font-semibold text-slate-800 break-all sm:text-base";
+          label.textContent = option;
+
+          btn.appendChild(badge);
+          btn.appendChild(label);
+          btn.addEventListener("click", function () { selectOption(index); });
+
+          optionsList.appendChild(btn);
+          optionButtons.push({ btn: btn, badge: badge });
+        });
+
+        replayAnimation(questionCard, "animate-fade-in-up");
+      }
+
+      /* =========================================================
+         ANSWERING
+         ========================================================= */
+      function selectOption(index) {
+        if (hasAnswered) return;
+        hasAnswered = true;
+        answers[currentIndex] = index;
+
+        const q = QUESTIONS[currentIndex];
+        const isCorrect = index === q.answer;
+
+        optionButtons.forEach(function (item, i) {
+          item.btn.disabled = true;
+          if (i === q.answer) {
+            item.btn.className = OPTION_OK;
+            item.badge.className = BADGE_OK;
+          } else if (i === index) {
+            item.btn.className = OPTION_BAD;
+            item.badge.className = BADGE_BAD;
+          } else {
+            item.btn.className = OPTION_DIM;
+            item.badge.className = BADGE_IDLE;
+          }
+        });
+
+        // feedback box
+        feedbackBox.className = isCorrect ? FEEDBACK_OK : FEEDBACK_BAD;
+        feedbackTitle.className = "flex items-center gap-2 font-bold " + (isCorrect ? "text-emerald-700" : "text-rose-700");
+        feedbackTitle.textContent = isCorrect ? "✅ Correct!" : "❌ Not quite";
+        feedbackText.className = "mt-1.5 leading-relaxed " + (isCorrect ? "text-emerald-800" : "text-rose-800");
+        feedbackText.textContent = isCorrect
+          ? q.explain
+          : "The correct answer is " + (LETTERS[q.answer] || "") + ". " + q.explain;
+
+        nextBtn.disabled = false;
+      }
+
+      nextBtn.addEventListener("click", function () {
+        if (currentIndex < QUESTIONS.length - 1) {
+          currentIndex += 1;
+          renderQuestion();
+        } else {
+          finish();
+        }
+      });
+
+      /* keyboard shortcuts */
+      document.addEventListener("keydown", function (e) {
+        if (quizScreen.classList.contains("hidden")) return;
+        if (e.target && e.target.tagName === "INPUT") return;
+
+        if (["1", "2", "3", "4", "5", "6"].indexOf(e.key) !== -1) {
+          const i = parseInt(e.key, 10) - 1;
+          if (!hasAnswered && optionButtons[i]) selectOption(i);
+        } else if (e.key === "Enter" && !nextBtn.disabled) {
+          e.preventDefault();
+          nextBtn.click();
+        }
+      });
+
+      /* =========================================================
+         FINISH + SAVE
+         ========================================================= */
+      function finish() {
+        let score = 0;
+        answers.forEach(function (a, i) {
+          if (a === QUESTIONS[i].answer) score += 1;
+        });
+
+        const result = {
+          score: score,
+          total: QUESTIONS.length,
+          answers: answers.slice(),
+          date: new Date().toISOString()
+        };
+
+        safeSet(STORAGE_KEY, JSON.stringify(result));
+        showResult(result, false);
+      }
+
+      /* =========================================================
+         RESULT SCREEN
+         ========================================================= */
+      function showResult(result, isRevisit) {
+        const total = result.total || QUESTIONS.length;
+        const score = result.score || 0;
+        const percent = Math.round((score / total) * 100);
+
+        lockedBanner.classList.toggle("hidden", !isRevisit);
+        lockedBanner.classList.toggle("flex", isRevisit);
+
+        resultName.textContent = isRevisit ? "Completed on " + formatDate(result.date) : "";
+
+        scoreText.textContent = score + " / " + total + " correct";
+        resultMessage.textContent = getMessage(percent);
+
+        // colour of the ring
+        let colour = "#f43f5e";
+        if (percent >= 80) colour = "#10b981";
+        else if (percent >= 60) colour = "#6366f1";
+        else if (percent >= 40) colour = "#f59e0b";
+
+        scoreCircle.setAttribute("stroke", colour);
+        scoreCircle.setAttribute("stroke-dashoffset", CIRCUMFERENCE);
+
+        // reset before animating
+        scorePercent.textContent = "0%";
+        reviewSection.classList.add("hidden");
+        reviewToggle.textContent = "Show answers review";
+
+        show(resultScreen);
+        replayAnimation(resultCard, "animate-fade-in-up");
+
+        // animate ring + counting number
+        setTimeout(function () {
+          scoreCircle.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE * (1 - percent / 100)));
+          countUp(percent, 900);
+        }, 120);
+
+        renderReview(result.answers || [], total);
+      }
+
+      function countUp(target, duration) {
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min((now - start) / duration, 1);
+          const value = Math.round(t * target);
+          scorePercent.textContent = value + "%";
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function getMessage(percent) {
+        if (percent === 100) return "Perfect score! 🎉 You are an HTML star — nothing to fix here.";
+        if (percent >= 80) return "Great job! 🌟 You really know your basic HTML tags.";
+        if (percent >= 60) return "Good work! 👍 Read the review below and you will get the rest next time.";
+        if (percent >= 40) return "Keep practising 💪 Open the review to see what to fix.";
+        return "Nice start! 🌱 Open the review below, look at the correct tags, then ask your teacher to reset the quiz.";
+      }
+
+      function formatDate(iso) {
+        if (!iso) return "";
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+      }
+
+      /* =========================================================
+         REVIEW LIST
+         ========================================================= */
+      function renderReview(savedAnswers, total) {
+        reviewList.innerHTML = "";
+
+        QUESTIONS.forEach(function (q, i) {
+          const chosen = savedAnswers[i];
+          const isCorrect = chosen === q.answer;
+
+          const item = document.createElement("div");
+          item.className = "rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm " +
+            (isCorrect ? "border-l-4 border-l-emerald-500" : "border-l-4 border-l-rose-500");
+
+          const head = document.createElement("p");
+          head.className = "flex gap-2 text-sm font-bold text-slate-800";
+          const num = document.createElement("span");
+          num.className = "shrink-0 text-slate-400";
+          num.textContent = (i + 1) + ".";
+          const qText = document.createElement("span");
+          qText.textContent = q.text;
+          head.appendChild(num);
+          head.appendChild(qText);
+          item.appendChild(head);
+
+          const yourRow = document.createElement("p");
+          yourRow.className = "mt-2.5 text-sm " + (isCorrect ? "text-emerald-700" : "text-rose-700");
+          const yourLabel = document.createElement("span");
+          yourLabel.className = "font-semibold";
+          yourLabel.textContent = "Your answer: ";
+          const yourCode = document.createElement("code");
+          yourCode.className = "rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[13px] text-slate-800";
+          yourCode.textContent = chosen >= 0 && q.options[chosen] !== undefined ? q.options[chosen] : "—";
+          yourRow.appendChild(yourLabel);
+          yourRow.appendChild(yourCode);
+          item.appendChild(yourRow);
+
+          if (!isCorrect) {
+            const okRow = document.createElement("p");
+            okRow.className = "mt-1.5 text-sm text-emerald-700";
+            const okLabel = document.createElement("span");
+            okLabel.className = "font-semibold";
+            okLabel.textContent = "Correct: ";
+            const okCode = document.createElement("code");
+            okCode.className = "rounded bg-emerald-50 px-1.5 py-0.5 font-mono text-[13px] text-emerald-800";
+            okCode.textContent = q.options[q.answer];
+            okRow.appendChild(okLabel);
+            okRow.appendChild(okCode);
+            item.appendChild(okRow);
+          }
+
+          const why = document.createElement("p");
+          why.className = "mt-2 text-[13px] leading-relaxed text-slate-500";
+          why.textContent = q.explain;
+          item.appendChild(why);
+
+          reviewList.appendChild(item);
+        });
+      }
+
+      reviewToggle.addEventListener("click", function () {
+        const isHidden = reviewSection.classList.contains("hidden");
+        reviewSection.classList.toggle("hidden", !isHidden);
+        reviewToggle.textContent = isHidden ? "Hide answers review" : "Show answers review";
+        if (isHidden) {
+          reviewSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+
+      printBtn.addEventListener("click", function () {
+        reviewSection.classList.remove("hidden");
+        reviewToggle.textContent = "Hide answers review";
+        window.print();
+      });
+
+      /* =========================================================
+         TEACHER RESET (needs the word RESET to confirm)
+         ========================================================= */
+      resetBtn.addEventListener("click", function () {
+        const code = window.prompt(
+          "This deletes the saved result from THIS browser so the quiz can be taken again.\n\nType RESET to confirm:"
+        );
+        if (code && code.trim().toUpperCase() === "RESET") {
+          safeRemove(STORAGE_KEY);
+          window.location.reload();
+        }
+      });
+
+      /* =========================================================
+         BOOT — lock the quiz if it was already completed
+         ========================================================= */
+      (function init() {
+        const saved = loadSavedResult();
+        if (saved) {
+          showResult(saved, true);
+        } else {
+          show(startScreen);
+        }
+      })();
+    })();
+  </script>
+</body>
+</html>
