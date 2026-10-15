@@ -210,9 +210,6 @@
     <!-- ===== FOOTER ===== -->
     <footer class="mt-8 text-center">
       <p class="text-xs text-slate-400">HTML Basics Quiz · one attempt per browser</p>
-      <button id="resetBtn" type="button" class="mt-2 text-xs text-slate-400 underline decoration-dotted underline-offset-2 transition hover:text-rose-500">
-        Teacher: unlock / reset this browser
-      </button>
     </footer>
   </div>
 
@@ -313,7 +310,6 @@
       const resultScreen  = document.getElementById("resultScreen");
 
       const startBtn      = document.getElementById("startBtn");
-      const resetBtn      = document.getElementById("resetBtn");
 
       const progressBar   = document.getElementById("progressBar");
       const counterEl     = document.getElementById("questionCounter");
@@ -368,10 +364,6 @@
       function safeSet(key, value) {
         try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
       }
-      function safeRemove(key) {
-        try { localStorage.removeItem(key); return true; } catch (e) { return false; }
-      }
-
       function loadSavedResult() {
         const raw = safeGet(STORAGE_KEY);
         if (!raw) return null;
@@ -390,7 +382,6 @@
           s.classList.add("hidden");
         });
         screen.classList.remove("hidden");
-        resetBtn.classList.toggle("hidden", screen === quizScreen);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
@@ -684,19 +675,6 @@
         reviewSection.classList.remove("hidden");
         reviewToggle.textContent = "Hide answers review";
         window.print();
-      });
-
-      /* =========================================================
-         TEACHER RESET (needs the word RESET to confirm)
-         ========================================================= */
-      resetBtn.addEventListener("click", function () {
-        const code = window.prompt(
-          "This deletes the saved result from THIS browser so the quiz can be taken again.\n\nType RESET to confirm:"
-        );
-        if (code && code.trim().toUpperCase() === "RESET") {
-          safeRemove(STORAGE_KEY);
-          window.location.reload();
-        }
       });
 
       /* =========================================================
