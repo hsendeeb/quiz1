@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HTML Basics Quiz</title>
-  <meta name="description" content="A beginner multiple-choice quiz about basic HTML: images, bold text, tables and lists." />
+  <title>Quiz Portal</title>
+  <meta name="description" content="A beginner quiz portal for web development basics." />
 
   <!-- Tailwind CSS (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,10 +26,15 @@
             'fade-in-up': {
               '0%': { opacity: '0', transform: 'translateY(10px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            'pulse-ring': {
+              '0%': { transform: 'scale(0.95)', opacity: '0.8' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           },
           animation: {
-            'fade-in-up': 'fade-in-up .35s ease-out both'
+            'fade-in-up': 'fade-in-up .35s ease-out both',
+            'pulse-ring': 'pulse-ring .4s ease-out both'
           }
         }
       }
@@ -37,7 +42,6 @@
   </script>
 
   <style>
-    /* Nicer tap behaviour on phones */
     html { -webkit-tap-highlight-color: transparent; }
     button { touch-action: manipulation; }
     ::-webkit-scrollbar { width: 10px; }
@@ -50,61 +54,46 @@
   <div class="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-4 py-6 sm:px-6 sm:py-10">
 
     <!-- ===== HEADER ===== -->
-    <header class="mb-5 text-center sm:mb-8">
+    <header id="portalHeader" class="mb-6 text-center sm:mb-10">
       <span class="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
-        Web Development · Lesson 1
+        Web Development · Quiz Portal
       </span>
-      <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-        HTML Basics Quiz
-      </h1>
-      <p class="mx-auto mt-2 max-w-md text-sm text-slate-500 sm:text-base">
-        Images · Bold text · Tables · Lists
+      <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Quiz Portal</h1>
+      <p id="portalStats" class="mx-auto mt-2 max-w-md text-sm text-slate-500 sm:text-base">
+        Select a quiz to begin
       </p>
     </header>
 
     <main class="flex-1">
 
       <!-- ============================================================= -->
-      <!-- SCREEN 1 — START                                              -->
+      <!-- SCREEN 1 — DASHBOARD / QUIZ LIST                              -->
       <!-- ============================================================= -->
-      <section id="startScreen" class="hidden animate-fade-in-up">
-        <div class="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-8">
-
-          <div class="flex items-center gap-3">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-2xl shadow-lg shadow-indigo-500/30">
-              🖥️
-            </div>
-            <div>
-              <h2 class="text-lg font-bold text-slate-900 sm:text-xl">Ready to test your HTML?</h2>
-              <p class="text-sm text-slate-500"><span id="questionCountLabel">12</span> multiple-choice questions</p>
-            </div>
+      <section id="dashboardScreen" class="animate-fade-in-up">
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-slate-900 sm:text-2xl">Available Quizzes</h2>
+            <button
+              id="historyToggle"
+              type="button"
+              class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+            >
+              View history
+            </button>
           </div>
 
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="rounded-lg bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-sky-200">&lt;img&gt; images</span>
-            <span class="rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">&lt;b&gt; / &lt;strong&gt; bold</span>
-            <span class="rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">&lt;table&gt; tables</span>
-            <span class="rounded-lg bg-fuchsia-50 px-2.5 py-1 text-xs font-semibold text-fuchsia-700 ring-1 ring-fuchsia-200">&lt;ul&gt; / &lt;ol&gt; lists</span>
-          </div>
-
-          <ul class="mt-6 space-y-2.5 text-sm text-slate-600">
-            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> One answer per question. The answer is checked right away.</li>
-            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> Your score is shown at the end, with a full review.</li>
-            <li class="flex gap-2.5"><span class="text-emerald-500">✔</span> No time limit — take your time and think.</li>
-            <li class="flex gap-2.5"><span class="text-rose-500">🔒</span> You can only take this quiz <strong>once</strong> on this browser.</li>
-          </ul>
-
-          <button
-            id="startBtn"
-            type="button"
-            class="mt-5 w-full rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 active:scale-[.99]"
-          >
-            Start the quiz →
-          </button>
-
-          <p class="mt-3 text-center text-xs text-slate-400">
-            Your result is saved in this browser only, so the quiz stays locked after one attempt.
+          <p id="dashboardSubtitle" class="text-sm text-slate-500 sm:text-base">
+            Pick a quiz below. Each quiz can only be taken <strong>once per browser</strong>.
           </p>
+
+          <div id="quizGrid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- quiz cards injected here by JS -->
+          </div>
+
+          <div id="historyPanel" class="hidden mt-4 rounded-xl border border-slate-200 bg-white/80 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-7">
+            <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500">Completed quizzes</h3>
+            <div id="historyList" class="space-y-3"></div>
+          </div>
         </div>
       </section>
 
@@ -112,23 +101,28 @@
       <!-- SCREEN 2 — QUIZ                                               -->
       <!-- ============================================================= -->
       <section id="quizScreen" class="hidden">
-        <!-- progress -->
+        <button
+          id="backToDashboard"
+          type="button"
+          class="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+        >
+          ← Back
+        </button>
+
         <div class="mb-4">
-          <div class="mb-2 flex items-center justify-between text-xs font-semibold text-slate-500">
+          <div class="mb-1 flex items-center justify-between text-xs font-semibold text-slate-500">
+            <span id="currentQuizTitle" class="text-base font-bold text-slate-900 sm:text-lg"></span>
             <span id="questionCounter">Question 1 of 12</span>
-            <span id="questionProgressLabel">0%</span>
           </div>
           <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
             <div id="progressBar" class="h-full w-0 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500 ease-out"></div>
           </div>
         </div>
 
-        <!-- question card -->
         <div id="questionCard" class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-7">
           <h2 id="questionText" class="text-base font-bold leading-snug text-slate-900 sm:text-xl"></h2>
           <div id="optionsList" class="mt-5 space-y-3"></div>
 
-          <!-- feedback -->
           <div id="feedbackBox" class="mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4" role="status" aria-live="polite">
             <p id="feedbackTitle" class="flex items-center gap-2 font-bold"></p>
             <p id="feedbackText" class="mt-1.5 leading-relaxed"></p>
@@ -152,11 +146,19 @@
       <!-- SCREEN 3 — RESULT / LOCKED                                    -->
       <!-- ============================================================= -->
       <section id="resultScreen" class="hidden">
+        <button
+          id="resultBackToDashboard"
+          type="button"
+          class="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+        >
+          ← Back to portal
+        </button>
+
         <div id="lockedBanner" class="mb-4 hidden items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
           <span class="text-lg">🔒</span>
           <p>
-            <strong>You have already completed this quiz.</strong><br class="hidden sm:block" />
-            Each student may take the quiz only once. This is your saved result.
+            <strong>You already completed this quiz.</strong><br class="hidden sm:block" />
+            Each quiz can only be taken once. This is your saved result.
           </p>
         </div>
 
@@ -178,7 +180,7 @@
             </div>
           </div>
 
-          <p id="resultName" class="mt-4 text-center text-sm font-semibold text-slate-500"></p>
+          <p id="resultQuizName" class="mt-3 text-center text-sm font-semibold text-slate-500 sm:text-base"></p>
           <p id="scoreText" class="text-center text-xl font-extrabold text-slate-900 sm:text-2xl"></p>
           <p id="resultMessage" class="mx-auto mt-2 max-w-sm text-center text-sm leading-relaxed text-slate-600"></p>
 
@@ -209,140 +211,326 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="mt-8 text-center">
-      <p class="text-xs text-slate-400">HTML Basics Quiz · one attempt per browser</p>
+      <p class="text-xs text-slate-400">Quiz Portal · one attempt per quiz per browser</p>
     </footer>
   </div>
 
   <!-- =========================================================================
-       QUIZ DATA — edit this array to add or change questions.
-       answer = the index (0 = first option) of the correct answer.
+       QUIZ DEFINITIONS — add, edit, or remove quizzes here.
+       Each quiz needs a unique id and storageKey so localStorage locks them separately.
        ========================================================================= -->
   <script>
-    const QUESTIONS = [
+    const QUIZZES = [
       {
-        text: "Which HTML tag is used to display an image on a web page?",
-        options: ["<image>", "<img>", "<imgs>", "<src>"],
-        answer: 1,
-        explain: "The <img> tag puts an image on the page. <image> is not a real HTML tag, and <src> is an attribute, not a tag."
+        id: "html-basics",
+        storageKey: "quiz:html-basics:v1",
+        title: "HTML Basics",
+        subtitle: "Images · Bold text · Tables · Lists",
+        icon: "🖥️",
+        color: "indigo",
+        questions: [
+          {
+            text: "Which HTML tag is used to display an image on a web page?",
+            options: ["", "", "<imgs>", "<src>"],
+            answer: 1,
+            explain: "The  tag puts an image on the page.  is not a real HTML tag, and <src> is an attribute, not a tag."
+          },
+          {
+            text: "Which attribute of the  tag tells the browser where the image file is located?",
+            options: ["href", "src", "link", "path"],
+            answer: 1,
+            explain: 'src means "source". Example: <img src="cat.jpg">. The href attribute is used by links, not by images.'
+          },
+          {
+            text: "If an image cannot load, which attribute shows a short text instead of the image?",
+            options: ["alt", "title", "caption", "text"],
+            answer: 0,
+            explain: 'alt means "alternative text". It appears when the image fails to load, and screen readers read it aloud.'
+          },
+          {
+            text: "Which tag makes text appear in bold?",
+            options: ["<bold>", "<b>", "<bb>", "<black>"],
+            answer: 1,
+            explain: "<b> makes text bold. There is no <bold> tag in HTML — a very common mistake!"
+          },
+          {
+            text: "Which tag marks text as important? Browsers display it in bold.",
+            options: ["<important>", "<em>", "<strong>", "<big>"],
+            answer: 2,
+            explain: "<strong> means \"this text is important\" and looks bold. <em> means emphasis and looks italic."
+          },
+          {
+            text: "Which tag creates (starts) a table?",
+            options: ["<table>", "<tab>", "<grid>", "<t>"],
+            answer: 0,
+            explain: "All the rows and cells of a table must be written inside <table> ... </table>."
+          },
+          {
+            text: "Which tag creates a row (a line) inside a table?",
+            options: ["<td>", "<tr>", "<th>", "<row>"],
+            answer: 1,
+            explain: "tr = table row. Each row is written with <tr> and holds the cells inside it."
+          },
+          {
+            text: "Which tag creates a normal data cell inside a table row?",
+            options: ["<tc>", "<cell>", "<td>", "<tr>"],
+            answer: 2,
+            explain: "td = table data. Example: <tr><td>Ahmed</td><td>15</td></tr>"
+          },
+          {
+            text: "Which tag creates a table heading cell? It is bold and centered by default.",
+            options: ["<td>", "<head>", "<th>", "<heading>"],
+            answer: 2,
+            explain: "th = table header. It is normally used in the first row of the table."
+          },
+          {
+            text: "Which tag creates a bulleted list (with dots)?",
+            options: ["<ol>", "<list>", "<ul>", "<bl>"],
+            answer: 2,
+            explain: "ul = unordered list (order does not matter), so it shows bullets. Each point inside it uses <li>."
+          },
+          {
+            text: "Which tag creates a numbered list (1, 2, 3 ...)?",
+            options: ["<ol>", "<ul>", "<nl>", "<dl>"],
+            answer: 0,
+            explain: "ol = ordered list, so the browser numbers the items for you automatically."
+          },
+          {
+            text: "Which tag creates one single item inside a list?",
+            options: ["<item>", "<li>", "<ul>", "<point>"],
+            answer: 1,
+            explain: "li = list item. It is used inside both <ul> and <ol>."
+          }
+        ]
       },
       {
-        text: "Which attribute of the <img> tag tells the browser where the image file is located?",
-        options: ["href", "src", "link", "path"],
-        answer: 1,
-        explain: 'src means "source". Example: <img src="cat.jpg">. The href attribute is used by links, not by images.'
+        id: "css-basics",
+        storageKey: "quiz:css-basics:v1",
+        title: "CSS Basics",
+        subtitle: "Color · Background · Text-align · Selectors · External · Internal · Inline",
+        icon: "🎨",
+        color: "emerald",
+        questions: [
+          {
+            text: "Which CSS property changes the text color of an element?",
+            options: ["background-color", "color", "font-color", "text-color"],
+            answer: 1,
+            explain: "The color property sets the text color. Example: p { color: red; }"
+          },
+          {
+            text: "Which of these is NOT a valid CSS color value?",
+            options: ["#ff0000", "rgb(255, 0, 0)", "red", "colour(255, 0, 0)"],
+            answer: 3,
+            explain: "colour() is not a valid CSS function. Use hex codes, rgb(), or named colors like red."
+          },
+          {
+            text: "Which property sets the background color of an element?",
+            options: ["color", "bg-color", "background-color", "fill"],
+            answer: 2,
+            explain: "background-color sets the background color of an element."
+          },
+          {
+            text: "Which property adds a background image to an element?",
+            options: ["background-img", "image", "background-image", "src"],
+            answer: 2,
+            explain: "background-image sets a background image. Example: background-image: url('pic.jpg');"
+          },
+          {
+            text: "Which value stops a background image from repeating (tiling)?",
+            options: ["repeat: no", "background-repeat: no-repeat", "background-repeat: once", "no-repeat: true"],
+            answer: 1,
+            explain: "background-repeat: no-repeat shows the image only once instead of tiling it."
+          },
+          {
+            text: "Which shorthand property can set background color, image, repeat, and position at once?",
+            options: ["color", "bg", "background", "style"],
+            answer: 2,
+            explain: "background is the shorthand property for all background-related settings."
+          },
+          {
+            text: "Which property aligns text horizontally inside an element?",
+            options: ["align-text", "text-align", "text-alignment", "align"],
+            answer: 1,
+            explain: "text-align controls the horizontal alignment of text inside an element."
+          },
+          {
+            text: "Which value centers text horizontally?",
+            options: ["center", "middle", "justify", "center-align"],
+            answer: 0,
+            explain: "text-align: center centers the text inside its container."
+          },
+          {
+            text: "Which value aligns text to the right side?",
+            options: ["right", "end", "justify", "left"],
+            answer: 0,
+            explain: "text-align: right pushes the text to the right edge of its container."
+          },
+          {
+            text: "Which selector targets an element with class=\"box\"?",
+            options: [".box", "#box", "box", "*box"],
+            answer: 0,
+            explain: "A class selector starts with a dot: .box { }"
+          },
+          {
+            text: "Which selector targets an element with id=\"header\"?",
+            options: ["#header", ".header", "header", "*header"],
+            answer: 0,
+            explain: "An id selector starts with a hash: #header { }"
+          },
+          {
+            text: "Which selector targets all <p> elements on the page?",
+            options: ["<p>", "p", ".p", "#p"],
+            answer: 1,
+            explain: "An element selector uses the tag name directly: p { }"
+          },
+          {
+            text: "Which pseudo-class applies styles when the user hovers over an element?",
+            options: [":click", ":hover", ":active", ":focus"],
+            answer: 1,
+            explain: ":hover applies styles while the mouse pointer is over the element."
+          },
+          {
+            text: "How do you link an external CSS file in HTML?",
+            options: ["<css src='style.css'>", "<link rel='stylesheet' href='style.css'>", "<style src='style.css'>", "<include file='style.css'>"],
+            answer: 1,
+            explain: "External CSS is linked in the <head> using <link rel='stylesheet' href='...'>."
+          },
+          {
+            text: "Where is internal CSS written?",
+            options: ["Inside a <script> tag", "Inside a <style> tag in the <head>", "Only inside the <body>", "In a separate .html file"],
+            answer: 1,
+            explain: "Internal CSS goes inside <style>...</style> in the <head> section of the HTML page."
+          },
+          {
+            text: "Which method writes CSS directly inside an HTML tag?",
+            options: ["class='style'", "id='style'", "style='color: red;'", "css='color: red;'"],
+            answer: 2,
+            explain: "Inline CSS uses the style attribute directly on the HTML element."
+          },
+          {
+            text: "Which CSS method has the highest priority by default?",
+            options: ["External CSS", "Internal CSS", "Inline CSS", "They all have equal priority"],
+            answer: 2,
+            explain: "Inline CSS has the highest priority and overrides internal and external styles."
+          },
+          {
+            text: "Which value must the rel attribute have when linking an external stylesheet?",
+            options: ["rel='stylesheet'", "rel='css'", "rel='external'", "rel='design'"],
+            answer: 0,
+            explain: "The <link> tag needs rel='stylesheet' to load an external CSS file."
+          },
+          {
+            text: "Where should the <style> tag be placed for internal CSS?",
+            options: ["<body>", "<head>", "<footer>", "<html>"],
+            answer: 1,
+            explain: "The <style> tag belongs inside the <head> section of the HTML document."
+          },
+          {
+            text: "If the same rule exists in external, internal, and inline CSS, which one wins?",
+            options: ["External always wins", "Internal always wins", "Inline always wins", "The last one written always wins"],
+            answer: 2,
+            explain: "Inline CSS has the highest specificity and wins over internal and external styles by default."
+          }
+        ]
       },
       {
-        text: "If an image cannot load, which attribute shows a short text instead of the image?",
-        options: ["alt", "title", "caption", "text"],
-        answer: 0,
-        explain: 'alt means "alternative text". It appears when the image fails to load, and screen readers read it aloud.'
-      },
-      {
-        text: "Which tag makes text appear in bold?",
-        options: ["<bold>", "<b>", "<bb>", "<black>"],
-        answer: 1,
-        explain: "<b> makes text bold. There is no <bold> tag in HTML — a very common mistake!"
-      },
-      {
-        text: "Which tag marks text as important? Browsers display it in bold.",
-        options: ["<important>", "<em>", "<strong>", "<big>"],
-        answer: 2,
-        explain: "<strong> means \"this text is important\" and looks bold. <em> means emphasis and looks italic."
-      },
-      {
-        text: "Which tag creates (starts) a table?",
-        options: ["<table>", "<tab>", "<grid>", "<t>"],
-        answer: 0,
-        explain: "All the rows and cells of a table must be written inside <table> ... </table>."
-      },
-      {
-        text: "Which tag creates a row (a line) inside a table?",
-        options: ["<td>", "<tr>", "<th>", "<row>"],
-        answer: 1,
-        explain: "tr = table row. Each row is written with <tr> and holds the cells inside it."
-      },
-      {
-        text: "Which tag creates a normal data cell inside a table row?",
-        options: ["<tc>", "<cell>", "<td>", "<tr>"],
-        answer: 2,
-        explain: "td = table data. Example: <tr><td>Ahmed</td><td>15</td></tr>"
-      },
-      {
-        text: "Which tag creates a table heading cell? It is bold and centered by default.",
-        options: ["<td>", "<head>", "<th>", "<heading>"],
-        answer: 2,
-        explain: "th = table header. It is normally used in the first row of the table."
-      },
-      {
-        text: "Which tag creates a bulleted list (with dots)?",
-        options: ["<ol>", "<list>", "<ul>", "<bl>"],
-        answer: 2,
-        explain: "ul = unordered list (order does not matter), so it shows bullets. Each point inside it uses <li>."
-      },
-      {
-        text: "Which tag creates a numbered list (1, 2, 3 ...)?",
-        options: ["<ol>", "<ul>", "<nl>", "<dl>"],
-        answer: 0,
-        explain: "ol = ordered list, so the browser numbers the items for you automatically."
-      },
-      {
-        text: "Which tag creates one single item inside a list?",
-        options: ["<item>", "<li>", "<ul>", "<point>"],
-        answer: 1,
-        explain: "li = list item. It is used inside both <ul> and <ol>."
+        id: "js-basics",
+        storageKey: "quiz:js-basics:v1",
+        title: "JavaScript Basics",
+        subtitle: "Variables · Functions · Events · DOM",
+        icon: "💻",
+        color: "amber",
+        questions: [
+          {
+            text: "Which keyword declares a variable that cannot be reassigned?",
+            options: ["var", "let", "const", "static"],
+            answer: 2,
+            explain: "const creates a read-only reference. Its value cannot be reassigned."
+          },
+          {
+            text: "Which method adds a new element to the end of an array?",
+            options: ["push()", "pop()", "shift()", "unshift()"],
+            answer: 0,
+            explain: "push() adds one or more elements to the end of an array."
+          },
+          {
+            text: "Which event fires when a user clicks a button?",
+            options: ["onmouseover", "onclick", "onchange", "onsubmit"],
+            answer: 1,
+            explain: "The click event (onclick) fires when the user clicks the element."
+          },
+          {
+            text: "Which method selects the first element matching a CSS selector?",
+            options: ["getElementsByClassName()", "querySelector()", "getElementsByTagName()", "getElementsByName()"],
+            answer: 1,
+            explain: "querySelector('.my-class') returns the first element that matches the selector."
+          },
+          {
+            text: "What does console.log() do?",
+            options: ["Shows an alert box", "Prints a message to the browser console", "Writes to the page", "Stops the script"],
+            answer: 1,
+            explain: "console.log() prints messages to the developer console for debugging."
+          }
+        ]
       }
     ];
   </script>
 
   <!-- =========================================================================
-       QUIZ LOGIC
+       QUIZ PORTAL LOGIC
        ========================================================================= -->
   <script>
     (function () {
       "use strict";
 
-      const STORAGE_KEY = "htmlBasicsQuiz:result:v1";
-      const CIRCUMFERENCE = 326.73; // 2 * PI * 52
-
       /* ---------- element refs ---------- */
-      const startScreen   = document.getElementById("startScreen");
-      const quizScreen    = document.getElementById("quizScreen");
-      const resultScreen  = document.getElementById("resultScreen");
+      const dashboardScreen = document.getElementById("dashboardScreen");
+      const quizScreen      = document.getElementById("quizScreen");
+      const resultScreen    = document.getElementById("resultScreen");
 
-      const startBtn      = document.getElementById("startBtn");
+      const portalStats     = document.getElementById("portalStats");
+      const quizGrid        = document.getElementById("quizGrid");
+      const dashboardSubtitle = document.getElementById("dashboardSubtitle");
+      const historyToggle   = document.getElementById("historyToggle");
+      const historyPanel    = document.getElementById("historyPanel");
+      const historyList     = document.getElementById("historyList");
 
-      const progressBar   = document.getElementById("progressBar");
-      const counterEl     = document.getElementById("questionCounter");
-      const progressLabel = document.getElementById("questionProgressLabel");
-      const questionCard  = document.getElementById("questionCard");
-      const questionText  = document.getElementById("questionText");
-      const optionsList   = document.getElementById("optionsList");
-      const feedbackBox   = document.getElementById("feedbackBox");
-      const feedbackTitle = document.getElementById("feedbackTitle");
-      const feedbackText  = document.getElementById("feedbackText");
-      const nextBtn       = document.getElementById("nextBtn");
+      const backToDashboard    = document.getElementById("backToDashboard");
+      const resultBackToDash   = document.getElementById("resultBackToDashboard");
+      const currentQuizTitle   = document.getElementById("currentQuizTitle");
+      const progressBar        = document.getElementById("progressBar");
+      const counterEl          = document.getElementById("questionCounter");
+      const questionCard       = document.getElementById("questionCard");
+      const questionText       = document.getElementById("questionText");
+      const optionsList        = document.getElementById("optionsList");
+      const feedbackBox        = document.getElementById("feedbackBox");
+      const feedbackTitle      = document.getElementById("feedbackTitle");
+      const feedbackText       = document.getElementById("feedbackText");
+      const nextBtn            = document.getElementById("nextBtn");
 
-      const lockedBanner  = document.getElementById("lockedBanner");
-      const resultCard    = document.getElementById("resultCard");
-      const scoreCircle   = document.getElementById("scoreCircle");
-      const scorePercent  = document.getElementById("scorePercent");
-      const scoreText     = document.getElementById("scoreText");
-      const resultName    = document.getElementById("resultName");
-      const resultMessage = document.getElementById("resultMessage");
-      const reviewToggle  = document.getElementById("reviewToggle");
-      const reviewSection = document.getElementById("reviewSection");
-      const reviewList    = document.getElementById("reviewList");
-      const printBtn      = document.getElementById("printBtn");
+      const lockedBanner   = document.getElementById("lockedBanner");
+      const resultCard     = document.getElementById("resultCard");
+      const scoreCircle    = document.getElementById("scoreCircle");
+      const scorePercent   = document.getElementById("scorePercent");
+      const scoreText      = document.getElementById("scoreText");
+      const resultQuizName = document.getElementById("resultQuizName");
+      const resultMessage  = document.getElementById("resultMessage");
+      const reviewToggle   = document.getElementById("reviewToggle");
+      const reviewSection  = document.getElementById("reviewSection");
+      const reviewList     = document.getElementById("reviewList");
+      const printBtn       = document.getElementById("printBtn");
 
       /* ---------- state ---------- */
-      let currentIndex = 0;
-      let answers = new Array(QUESTIONS.length).fill(-1);
-      let hasAnswered = false;
+      let currentQuiz   = null;      // active quiz object
+      let currentIndex  = 0;
+      let answers       = [];
+      let hasAnswered   = false;
       let optionButtons = [];
 
       const LETTERS = ["A", "B", "C", "D", "E", "F"];
+      const CIRCUMFERENCE = 326.73; // 2 * PI * 52
 
-      /* ---------- class strings (assigned whole, so Tailwind classes never clash) ---------- */
+      /* ---------- class strings ---------- */
       const OPTION_BASE = "flex w-full items-center gap-3 rounded-xl border bg-white p-3.5 text-left transition sm:p-4";
       const OPTION_IDLE = OPTION_BASE + " border-slate-200 cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/70 active:scale-[.99]";
       const OPTION_OK   = OPTION_BASE + " border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/25";
@@ -357,6 +545,9 @@
       const FEEDBACK_OK  = "mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-sm sm:p-4";
       const FEEDBACK_BAD = "mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-sm sm:p-4";
 
+      const CARD_DONE = "rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm";
+      const CARD_READY = "rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition";
+
       /* ---------- helpers ---------- */
       function safeGet(key) {
         try { return localStorage.getItem(key); } catch (e) { return null; }
@@ -364,13 +555,13 @@
       function safeSet(key, value) {
         try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
       }
-      function loadSavedResult() {
-        const raw = safeGet(STORAGE_KEY);
+
+      function loadSavedResult(storageKey) {
+        const raw = safeGet(storageKey);
         if (!raw) return null;
         try {
           const data = JSON.parse(raw);
-          // If the questions changed, allow a fresh attempt.
-          if (!data || data.total !== QUESTIONS.length) return null;
+          if (!data || data.total !== currentQuiz.questions.length) return null;
           return data;
         } catch (e) {
           return null;
@@ -378,7 +569,7 @@
       }
 
       function show(screen) {
-        [startScreen, quizScreen, resultScreen].forEach(function (s) {
+        [dashboardScreen, quizScreen, resultScreen].forEach(function (s) {
           s.classList.add("hidden");
         });
         screen.classList.remove("hidden");
@@ -387,7 +578,7 @@
 
       function replayAnimation(el, cls) {
         el.classList.remove(cls);
-        void el.offsetWidth; // force reflow so the animation restarts
+        void el.offsetWidth;
         el.classList.add(cls);
       }
 
@@ -395,29 +586,151 @@
         return n + " " + word + (n === 1 ? "" : "s");
       }
 
-      /* =========================================================
-         START
-         ========================================================= */
-      document.getElementById("questionCountLabel").textContent = QUESTIONS.length;
+      function formatDate(iso) {
+        if (!iso) return "";
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+      }
 
-      startBtn.addEventListener("click", function () {
-        currentIndex = 0;
-        answers = new Array(QUESTIONS.length).fill(-1);
-        show(quizScreen);
-        renderQuestion();
+      /* ---------- dashboard ---------- */
+      function countCompleted() {
+        return QUIZZES.filter(function (q) { return !!safeGet(q.storageKey); }).length;
+      }
+
+      function updateDashboardStats() {
+        const done = countCompleted();
+        const total = QUIZZES.length;
+        portalStats.textContent = done + " of " + total + " completed · one attempt per quiz per browser";
+      }
+
+      function renderDashboard() {
+        quizGrid.innerHTML = "";
+        historyList.innerHTML = "";
+
+        QUIZZES.forEach(function (quiz) {
+          const saved = loadSavedResult(quiz.storageKey);
+          const isDone = !!saved;
+
+          const card = document.createElement("article");
+          card.className = isDone ? CARD_DONE : CARD_READY;
+
+          const iconColor = quiz.color === "indigo"   ? "bg-indigo-500/10 text-indigo-600"
+                          : quiz.color === "emerald"  ? "bg-emerald-500/10 text-emerald-600"
+                          : "bg-amber-500/10 text-amber-600";
+
+          const header = document.createElement("div");
+          header.className = "flex items-center gap-3 mb-2";
+          const icon = document.createElement("span");
+          icon.className = "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl " + iconColor + " text-xl shadow-lg shadow-" + quiz.color + "-500/30";
+          icon.textContent = quiz.icon;
+          header.appendChild(icon);
+
+          const title = document.createElement("h3");
+          title.className = "text-lg font-bold text-slate-900";
+          title.textContent = quiz.title;
+          header.appendChild(title);
+
+          card.appendChild(header);
+
+          const sub = document.createElement("p");
+          sub.className = "text-sm text-slate-500 mb-3";
+          sub.textContent = quiz.subtitle;
+          card.appendChild(sub);
+
+          const qCount = document.createElement("p");
+          qCount.className = "text-xs font-mono text-slate-400 mb-4";
+          qCount.textContent = quiz.questions.length + " questions · " + (isDone ? "completed " + formatDate(saved.date) : "not started");
+          card.appendChild(qCount);
+
+          const btn = document.createElement("button");
+          btn.type = "button";
+          if (isDone) {
+            btn.className = "w-full rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]";
+            btn.textContent = "View result";
+            btn.addEventListener("click", function () { startQuiz(quiz, true); });
+          } else {
+            btn.className = "w-full rounded-xl border border-" + quiz.color + "-200 bg-" + quiz.color + "-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-" + quiz.color + "-500/30 transition hover:bg-" + quiz.color + "-700 focus:outline-none focus:ring-4 focus:ring-" + quiz.color + "-500/30 active:scale-[.99]";
+            btn.textContent = "Start quiz";
+            btn.addEventListener("click", function () { startQuiz(quiz, false); });
+          }
+          card.appendChild(btn);
+
+          quizGrid.appendChild(card);
+
+          // history panel entry
+          if (isDone) {
+            const score = saved.score || 0;
+            const total = saved.total || quiz.questions.length;
+            const percent = Math.round((score / total) * 100);
+
+            const item = document.createElement("div");
+            item.className = "flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3";
+
+            const icon2 = document.createElement("span");
+            icon2.className = "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg " + iconColor + " text-sm";
+            icon2.textContent = quiz.icon;
+            item.appendChild(icon2);
+
+            const info = document.createElement("div");
+            info.className = "min-w-0 flex-1";
+            const itemTitle = document.createElement("div");
+            itemTitle.className = "text-sm font-semibold text-slate-800";
+            itemTitle.textContent = quiz.title;
+            const itemMeta = document.createElement("div");
+            itemMeta.className = "text-xs text-slate-500";
+            itemMeta.textContent = score + " / " + total + " · " + formatDate(saved.date);
+            info.appendChild(itemTitle);
+            info.appendChild(itemMeta);
+            item.appendChild(info);
+
+            const pct = document.createElement("span");
+            pct.className = "text-sm font-bold text-slate-700";
+            pct.textContent = percent + "%";
+            item.appendChild(pct);
+
+            historyList.appendChild(item);
+          }
+        });
+
+        // empty history state
+        if (historyList.children.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "text-sm text-slate-400 text-center py-2";
+          empty.textContent = "No completed quizzes yet.";
+          historyList.appendChild(empty);
+        }
+
+        updateDashboardStats();
+      }
+
+      historyToggle.addEventListener("click", function () {
+        const isHidden = historyPanel.classList.contains("hidden");
+        historyPanel.classList.toggle("hidden", !isHidden);
+        historyToggle.textContent = isHidden ? "Hide history" : "View history";
+        if (isHidden) historyPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
 
-      /* =========================================================
-         QUESTION RENDERING
-         ========================================================= */
-      function renderQuestion() {
-        const q = QUESTIONS[currentIndex];
+      /* ---------- quiz flow ---------- */
+      function startQuiz(quiz, isRevisit) {
+        currentQuiz = quiz;
+        currentIndex = 0;
+        answers = new Array(quiz.questions.length).fill(-1);
         hasAnswered = false;
 
-        counterEl.textContent = "Question " + (currentIndex + 1) + " of " + QUESTIONS.length;
-        const pct = Math.round((currentIndex / QUESTIONS.length) * 100);
+        currentQuizTitle.textContent = quiz.title;
+        document.title = quiz.title + " · Quiz Portal";
+        show(quizScreen);
+        renderQuestion();
+      }
+
+      function renderQuestion() {
+        const q = currentQuiz.questions[currentIndex];
+        hasAnswered = false;
+
+        counterEl.textContent = "Question " + (currentIndex + 1) + " of " + currentQuiz.questions.length;
+        const pct = Math.round((currentIndex / currentQuiz.questions.length) * 100);
         progressBar.style.width = pct + "%";
-        progressLabel.textContent = pct + "%";
 
         questionText.textContent = q.text;
 
@@ -425,7 +738,7 @@
         feedbackBox.className = "mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4";
 
         nextBtn.disabled = true;
-        nextBtn.textContent = (currentIndex === QUESTIONS.length - 1) ? "See my score" : "Next question";
+        nextBtn.textContent = (currentIndex === currentQuiz.questions.length - 1) ? "See my score" : "Next question";
 
         optionsList.innerHTML = "";
         optionButtons = [];
@@ -454,15 +767,12 @@
         replayAnimation(questionCard, "animate-fade-in-up");
       }
 
-      /* =========================================================
-         ANSWERING
-         ========================================================= */
       function selectOption(index) {
         if (hasAnswered) return;
         hasAnswered = true;
         answers[currentIndex] = index;
 
-        const q = QUESTIONS[currentIndex];
+        const q = currentQuiz.questions[currentIndex];
         const isCorrect = index === q.answer;
 
         optionButtons.forEach(function (item, i) {
@@ -479,7 +789,6 @@
           }
         });
 
-        // feedback box
         feedbackBox.className = isCorrect ? FEEDBACK_OK : FEEDBACK_BAD;
         feedbackTitle.className = "flex items-center gap-2 font-bold " + (isCorrect ? "text-emerald-700" : "text-rose-700");
         feedbackTitle.textContent = isCorrect ? "✅ Correct!" : "❌ Not quite";
@@ -492,7 +801,7 @@
       }
 
       nextBtn.addEventListener("click", function () {
-        if (currentIndex < QUESTIONS.length - 1) {
+        if (currentIndex < currentQuiz.questions.length - 1) {
           currentIndex += 1;
           renderQuestion();
         } else {
@@ -500,7 +809,6 @@
         }
       });
 
-      /* keyboard shortcuts */
       document.addEventListener("keydown", function (e) {
         if (quizScreen.classList.contains("hidden")) return;
         if (e.target && e.target.tagName === "INPUT") return;
@@ -514,43 +822,39 @@
         }
       });
 
-      /* =========================================================
-         FINISH + SAVE
-         ========================================================= */
+      /* ---------- finish + save ---------- */
       function finish() {
         let score = 0;
         answers.forEach(function (a, i) {
-          if (a === QUESTIONS[i].answer) score += 1;
+          if (a === currentQuiz.questions[i].answer) score += 1;
         });
 
         const result = {
+          quizId: currentQuiz.id,
+          title: currentQuiz.title,
           score: score,
-          total: QUESTIONS.length,
+          total: currentQuiz.questions.length,
           answers: answers.slice(),
           date: new Date().toISOString()
         };
 
-        safeSet(STORAGE_KEY, JSON.stringify(result));
+        safeSet(currentQuiz.storageKey, JSON.stringify(result));
         showResult(result, false);
       }
 
-      /* =========================================================
-         RESULT SCREEN
-         ========================================================= */
+      /* ---------- result screen ---------- */
       function showResult(result, isRevisit) {
-        const total = result.total || QUESTIONS.length;
+        const total = result.total || currentQuiz.questions.length;
         const score = result.score || 0;
         const percent = Math.round((score / total) * 100);
 
         lockedBanner.classList.toggle("hidden", !isRevisit);
         lockedBanner.classList.toggle("flex", isRevisit);
 
-        resultName.textContent = isRevisit ? "Completed on " + formatDate(result.date) : "";
-
+        resultQuizName.textContent = currentQuiz.title + (isRevisit ? " · Completed " + formatDate(result.date) : "");
         scoreText.textContent = score + " / " + total + " correct";
         resultMessage.textContent = getMessage(percent);
 
-        // colour of the ring
         let colour = "#f43f5e";
         if (percent >= 80) colour = "#10b981";
         else if (percent >= 60) colour = "#6366f1";
@@ -559,7 +863,6 @@
         scoreCircle.setAttribute("stroke", colour);
         scoreCircle.setAttribute("stroke-dashoffset", CIRCUMFERENCE);
 
-        // reset before animating
         scorePercent.textContent = "0%";
         reviewSection.classList.add("hidden");
         reviewToggle.textContent = "Show answers review";
@@ -567,7 +870,6 @@
         show(resultScreen);
         replayAnimation(resultCard, "animate-fade-in-up");
 
-        // animate ring + counting number
         setTimeout(function () {
           scoreCircle.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE * (1 - percent / 100)));
           countUp(percent, 900);
@@ -588,27 +890,17 @@
       }
 
       function getMessage(percent) {
-        if (percent === 100) return "Perfect score! 🎉 You are an HTML star — nothing to fix here.";
-        if (percent >= 80) return "Great job! 🌟 You really know your basic HTML tags.";
+        if (percent === 100) return "Perfect score! 🎉 You are a star — nothing to fix here.";
+        if (percent >= 80) return "Great job! 🌟 You really know this topic.";
         if (percent >= 60) return "Good work! 👍 Read the review below and you will get the rest next time.";
         if (percent >= 40) return "Keep practising 💪 Open the review to see what to fix.";
-        return "Nice start! 🌱 Open the review below, look at the correct tags, then ask your teacher to reset the quiz.";
+        return "Nice start! 🌱 Open the review below, look at the correct answers, then ask your teacher for help.";
       }
 
-      function formatDate(iso) {
-        if (!iso) return "";
-        const d = new Date(iso);
-        if (isNaN(d.getTime())) return "";
-        return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
-      }
-
-      /* =========================================================
-         REVIEW LIST
-         ========================================================= */
       function renderReview(savedAnswers, total) {
         reviewList.innerHTML = "";
 
-        QUESTIONS.forEach(function (q, i) {
+        currentQuiz.questions.forEach(function (q, i) {
           const chosen = savedAnswers[i];
           const isCorrect = chosen === q.answer;
 
@@ -666,9 +958,7 @@
         const isHidden = reviewSection.classList.contains("hidden");
         reviewSection.classList.toggle("hidden", !isHidden);
         reviewToggle.textContent = isHidden ? "Hide answers review" : "Show answers review";
-        if (isHidden) {
-          reviewSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        if (isHidden) reviewSection.scrollIntoView({ behavior: "smooth", block: "start" });
       });
 
       printBtn.addEventListener("click", function () {
@@ -677,16 +967,31 @@
         window.print();
       });
 
-      /* =========================================================
-         BOOT — lock the quiz if it was already completed
-         ========================================================= */
+      /* ---------- navigation ---------- */
+      backToDashboard.addEventListener("click", function () {
+        currentQuiz = null;
+        currentIndex = 0;
+        answers = [];
+        hasAnswered = false;
+        document.title = "Quiz Portal";
+        show(dashboardScreen);
+        renderDashboard();
+      });
+
+      resultBackToDash.addEventListener("click", function () {
+        currentQuiz = null;
+        currentIndex = 0;
+        answers = [];
+        hasAnswered = false;
+        document.title = "Quiz Portal";
+        show(dashboardScreen);
+        renderDashboard();
+      });
+
+      /* ---------- boot ---------- */
       (function init() {
-        const saved = loadSavedResult();
-        if (saved) {
-          showResult(saved, true);
-        } else {
-          show(startScreen);
-        }
+        show(dashboardScreen);
+        renderDashboard();
       })();
     })();
   </script>
