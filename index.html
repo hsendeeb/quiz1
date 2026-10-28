@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz Portal</title>
-  <meta name="description" content="A beginner quiz portal for web development basics." />
+  <meta name="description" content="A quiz portal for web development fundamentals." />
 
   <!-- Tailwind CSS (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -21,20 +21,6 @@
           fontFamily: {
             sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
-          },
-          keyframes: {
-            'fade-in-up': {
-              '0%': { opacity: '0', transform: 'translateY(10px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' }
-            },
-            'pulse-ring': {
-              '0%': { transform: 'scale(0.95)', opacity: '0.8' },
-              '100%': { transform: 'scale(1)', opacity: '1' }
-            }
-          },
-          animation: {
-            'fade-in-up': 'fade-in-up .35s ease-out both',
-            'pulse-ring': 'pulse-ring .4s ease-out both'
           }
         }
       }
@@ -44,57 +30,68 @@
   <style>
     html { -webkit-tap-highlight-color: transparent; }
     button { touch-action: manipulation; }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-    ::-webkit-scrollbar-track { background: transparent; }
+
+    @media print {
+      header, footer, button { display: none !important; }
+      body { background: #fff !important; }
+      main { padding-top: 0 !important; }
+    }
   </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-indigo-100 font-sans text-slate-800 antialiased">
-  <div class="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-4 py-6 sm:px-6 sm:py-10">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
 
-    <!-- ===== HEADER ===== -->
-    <header id="portalHeader" class="mb-6 text-center sm:mb-10">
-      <span class="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-600">
-        Web Development · Quiz Portal
-      </span>
-      <h1 class="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Quiz Portal</h1>
-      <p id="portalStats" class="mx-auto mt-2 max-w-md text-sm text-slate-500 sm:text-base">
-        Select a quiz to begin
-      </p>
-    </header>
-
-    <main class="flex-1">
-
-      <!-- ============================================================= -->
-      <!-- SCREEN 1 — DASHBOARD / QUIZ LIST                              -->
-      <!-- ============================================================= -->
-      <section id="dashboardScreen" class="animate-fade-in-up">
-        <div class="space-y-6">
-          <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold text-slate-900 sm:text-2xl">Available Quizzes</h2>
-            <button
-              id="historyToggle"
-              type="button"
-              class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
-            >
-              View history
-            </button>
-          </div>
-
-          <p id="dashboardSubtitle" class="text-sm text-slate-500 sm:text-base">
-            Pick a quiz below. Each quiz can only be taken <strong>once per browser</strong>.
-          </p>
-
-          <div id="quizGrid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- quiz cards injected here by JS -->
-          </div>
-
-          <div id="historyPanel" class="hidden mt-4 rounded-xl border border-slate-200 bg-white/80 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-7">
-            <h3 class="mb-3 text-sm font-bold uppercase tracking-wider text-slate-500">Completed quizzes</h3>
-            <div id="historyList" class="space-y-3"></div>
-          </div>
+  <!-- ===== TOP BAR ===== -->
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+      <div class="flex items-center gap-3">
+        <div class="flex h-8 w-8 items-center justify-center rounded border border-slate-300 bg-white">
+          <svg class="h-4 w-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+            <rect x="9" y="3" width="6" height="4" rx="1" />
+            <path d="M9 13l2 2 4-4" />
+          </svg>
         </div>
+        <div class="leading-tight">
+          <p class="text-sm font-semibold tracking-tight text-slate-900">Quiz Portal</p>
+          <p class="text-xs text-slate-500">Web Development</p>
+        </div>
+      </div>
+      <p class="hidden text-xs text-slate-400 sm:block">One attempt per quiz</p>
+    </div>
+  </header>
+
+  <div class="mx-auto flex min-h-[calc(100vh-65px)] w-full max-w-4xl flex-col px-4 sm:px-6">
+    <main class="flex-1 py-8 sm:py-10">
+
+      <!-- ============================================================= -->
+      <!-- SCREEN 1 — DASHBOARD                                          -->
+      <!-- ============================================================= -->
+      <section id="dashboardScreen">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900">Quizzes</h1>
+            <p id="portalStats" class="mt-1 text-sm text-slate-500"></p>
+          </div>
+          <button
+            id="historyToggle"
+            type="button"
+            class="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2"
+          >
+            Show history
+          </button>
+        </div>
+
+        <p class="mt-2 text-sm text-slate-500">Select a quiz to begin. Each quiz can be taken once per browser.</p>
+
+        <div id="quizGrid" class="mt-6 divide-y divide-slate-100 overflow-hidden rounded-lg border border-slate-200 bg-white"></div>
+
+        <section id="historyPanel" class="mt-6 hidden overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div class="border-b border-slate-200 px-4 py-3 sm:px-5">
+            <h2 class="text-sm font-semibold text-slate-900">Completed quizzes</h2>
+          </div>
+          <div id="historyList" class="divide-y divide-slate-100"></div>
+        </section>
       </section>
 
       <!-- ============================================================= -->
@@ -104,114 +101,120 @@
         <button
           id="backToDashboard"
           type="button"
-          class="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-slate-900 focus-visible:outline-none focus-visible:underline"
         >
-          ← Back
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          Back to quizzes
         </button>
 
-        <div class="mb-4">
-          <div class="mb-1 flex items-center justify-between text-xs font-semibold text-slate-500">
-            <span id="currentQuizTitle" class="text-base font-bold text-slate-900 sm:text-lg"></span>
-            <span id="questionCounter">Question 1 of 12</span>
-          </div>
-          <div class="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-            <div id="progressBar" class="h-full w-0 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500 ease-out"></div>
+        <div class="mt-5 flex items-baseline justify-between gap-3">
+          <h1 id="currentQuizTitle" class="text-lg font-semibold tracking-tight text-slate-900"></h1>
+          <span id="questionCounter" class="shrink-0 text-xs font-medium tabular-nums text-slate-500"></span>
+        </div>
+
+        <div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-slate-200">
+          <div id="progressBar" class="h-full w-0 rounded-full bg-slate-900 transition-all duration-300 ease-out"></div>
+        </div>
+
+        <div id="questionCard" class="mt-6 rounded-lg border border-slate-200 bg-white p-5 sm:p-6">
+          <h2 id="questionText" class="text-base font-semibold leading-relaxed text-slate-900 sm:text-lg"></h2>
+          <div id="optionsList" class="mt-5 space-y-2.5"></div>
+
+          <div id="feedbackBox" class="mt-5 hidden border-l-2 pl-4" role="status" aria-live="polite">
+            <p id="feedbackTitle" class="text-sm font-semibold"></p>
+            <p id="feedbackText" class="mt-1 text-sm leading-relaxed text-slate-600"></p>
           </div>
         </div>
 
-        <div id="questionCard" class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-7">
-          <h2 id="questionText" class="text-base font-bold leading-snug text-slate-900 sm:text-xl"></h2>
-          <div id="optionsList" class="mt-5 space-y-3"></div>
-
-          <div id="feedbackBox" class="mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4" role="status" aria-live="polite">
-            <p id="feedbackTitle" class="flex items-center gap-2 font-bold"></p>
-            <p id="feedbackText" class="mt-1.5 leading-relaxed"></p>
-          </div>
+        <div class="mt-5 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-between">
+          <p class="text-xs text-slate-400">
+            Press <kbd class="rounded border border-slate-300 bg-white px-1 py-0.5 font-mono text-[10px] text-slate-600">1</kbd>–<kbd class="rounded border border-slate-300 bg-white px-1 py-0.5 font-mono text-[10px] text-slate-600">4</kbd> to answer, <kbd class="rounded border border-slate-300 bg-white px-1 py-0.5 font-mono text-[10px] text-slate-600">Enter</kbd> to continue.
+          </p>
+          <button
+            id="nextBtn"
+            type="button"
+            disabled
+            class="w-full rounded-md bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition enabled:hover:bg-slate-700 enabled:focus-visible:outline-none enabled:focus-visible:ring-2 enabled:focus-visible:ring-slate-900 enabled:focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 sm:w-auto"
+          >
+            Next question
+          </button>
         </div>
-
-        <button
-          id="nextBtn"
-          type="button"
-          disabled
-          class="mt-4 w-full rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition enabled:hover:bg-indigo-700 enabled:focus:ring-4 enabled:focus:ring-indigo-500/30 enabled:active:scale-[.99] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none"
-        >
-          Next question
-        </button>
-        <p class="mt-2 text-center text-xs text-slate-400">
-          Tip: press <kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">1</kbd>–<kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">4</kbd> to choose, <kbd class="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd> for next.
-        </p>
       </section>
 
       <!-- ============================================================= -->
-      <!-- SCREEN 3 — RESULT / LOCKED                                    -->
+      <!-- SCREEN 3 — RESULT                                             -->
       <!-- ============================================================= -->
       <section id="resultScreen" class="hidden">
         <button
           id="resultBackToDashboard"
           type="button"
-          class="mb-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-slate-900 focus-visible:outline-none focus-visible:underline"
         >
-          ← Back to portal
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          Back to quizzes
         </button>
 
-        <div id="lockedBanner" class="mb-4 hidden items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-          <span class="text-lg">🔒</span>
-          <p>
-            <strong>You already completed this quiz.</strong><br class="hidden sm:block" />
-            Each quiz can only be taken once. This is your saved result.
-          </p>
+        <div id="lockedBanner" class="mt-4 hidden border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          <span class="font-semibold text-slate-900">Completed.</span>
+          Each quiz can only be taken once. This is your saved result.
         </div>
 
-        <div id="resultCard" class="rounded-2xl border border-slate-200 bg-white/85 p-5 shadow-xl shadow-slate-300/40 backdrop-blur sm:p-8">
-          <div class="relative mx-auto h-32 w-32">
-            <svg viewBox="0 0 120 120" class="h-32 w-32 -rotate-90">
-              <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="10" />
-              <circle
-                id="scoreCircle"
-                cx="60" cy="60" r="52" fill="none"
-                stroke="#6366f1" stroke-width="10" stroke-linecap="round"
-                stroke-dasharray="326.73" stroke-dashoffset="326.73"
-                style="transition: stroke-dashoffset 1s ease-out"
-              />
-            </svg>
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span id="scorePercent" class="text-3xl font-extrabold tracking-tight text-slate-900">0%</span>
-              <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Score</span>
+        <div id="resultCard" class="mt-4 rounded-lg border border-slate-200 bg-white p-6 sm:p-8">
+          <p class="text-xs font-medium uppercase tracking-wider text-slate-500">Quiz result</p>
+          <h1 id="resultQuizName" class="mt-1 text-xl font-semibold tracking-tight text-slate-900"></h1>
+          <p id="resultDate" class="mt-1 text-sm text-slate-500"></p>
+
+          <div class="mt-6 flex items-baseline gap-2">
+            <span id="scorePercent" class="text-4xl font-semibold tabular-nums tracking-tight text-slate-900">0%</span>
+            <span id="scoreText" class="text-sm text-slate-500"></span>
+          </div>
+
+          <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+            <div id="scoreBar" class="h-full rounded-full bg-slate-900 transition-all duration-700 ease-out" style="width: 0%"></div>
+          </div>
+
+          <p id="resultMessage" class="mt-4 text-sm leading-relaxed text-slate-600"></p>
+
+          <div class="mt-6 flex flex-col gap-2 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-col gap-2 sm:flex-row">
+              <button
+                id="reviewToggle"
+                type="button"
+                class="w-full rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 sm:w-auto"
+              >
+                Show answers review
+              </button>
+              <button
+                id="printBtn"
+                type="button"
+                class="w-full rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 sm:w-auto"
+              >
+                Print result
+              </button>
             </div>
-          </div>
-
-          <p id="resultQuizName" class="mt-3 text-center text-sm font-semibold text-slate-500 sm:text-base"></p>
-          <p id="scoreText" class="text-center text-xl font-extrabold text-slate-900 sm:text-2xl"></p>
-          <p id="resultMessage" class="mx-auto mt-2 max-w-sm text-center text-sm leading-relaxed text-slate-600"></p>
-
-          <div class="mt-6 flex flex-col gap-2.5 sm:flex-row">
             <button
-              id="reviewToggle"
+              id="resultBackPrimary"
               type="button"
-              class="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
+              class="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 sm:w-auto"
             >
-              Show answers review
-            </button>
-            <button
-              id="printBtn"
-              type="button"
-              class="w-full rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]"
-            >
-              Save / print result
+              Back to quizzes
             </button>
           </div>
         </div>
 
-        <div id="reviewSection" class="mt-4 hidden">
-          <h3 class="mb-3 px-1 text-sm font-bold uppercase tracking-wider text-slate-500">Review</h3>
-          <div id="reviewList" class="space-y-3"></div>
+        <div id="reviewSection" class="mt-6 hidden">
+          <h2 class="text-sm font-semibold text-slate-900">Answers review</h2>
+          <div id="reviewList" class="mt-3 divide-y divide-slate-100 overflow-hidden rounded-lg border border-slate-200 bg-white"></div>
         </div>
       </section>
     </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="mt-8 text-center">
-      <p class="text-xs text-slate-400">Quiz Portal · one attempt per quiz per browser</p>
+    <footer class="border-t border-slate-200 py-5">
+      <p class="text-xs text-slate-400">Quiz Portal · Results are stored in this browser only.</p>
     </footer>
   </div>
 
@@ -226,8 +229,6 @@
         storageKey: "quiz:html-basics:v1",
         title: "HTML Basics",
         subtitle: "Images · Bold text · Tables · Lists",
-        icon: "🖥️",
-        color: "indigo",
         questions: [
           {
             text: "Which HTML tag is used to display an image on a web page?",
@@ -308,8 +309,6 @@
         storageKey: "quiz:css-basics:v1",
         title: "CSS Basics",
         subtitle: "Color · Background · Text-align · Selectors · External · Internal · Inline",
-        icon: "🎨",
-        color: "emerald",
         questions: [
           {
             text: "Which CSS property changes the text color of an element?",
@@ -438,8 +437,6 @@
         storageKey: "quiz:js-basics:v1",
         title: "JavaScript Basics",
         subtitle: "Variables · Functions · Events · DOM",
-        icon: "💻",
-        color: "amber",
         questions: [
           {
             text: "Which keyword declares a variable that cannot be reassigned?",
@@ -490,30 +487,30 @@
 
       const portalStats     = document.getElementById("portalStats");
       const quizGrid        = document.getElementById("quizGrid");
-      const dashboardSubtitle = document.getElementById("dashboardSubtitle");
       const historyToggle   = document.getElementById("historyToggle");
       const historyPanel    = document.getElementById("historyPanel");
       const historyList     = document.getElementById("historyList");
 
-      const backToDashboard    = document.getElementById("backToDashboard");
-      const resultBackToDash   = document.getElementById("resultBackToDashboard");
-      const currentQuizTitle   = document.getElementById("currentQuizTitle");
-      const progressBar        = document.getElementById("progressBar");
-      const counterEl          = document.getElementById("questionCounter");
-      const questionCard       = document.getElementById("questionCard");
-      const questionText       = document.getElementById("questionText");
-      const optionsList        = document.getElementById("optionsList");
-      const feedbackBox        = document.getElementById("feedbackBox");
-      const feedbackTitle      = document.getElementById("feedbackTitle");
-      const feedbackText       = document.getElementById("feedbackText");
-      const nextBtn            = document.getElementById("nextBtn");
+      const backToDashboard = document.getElementById("backToDashboard");
+      const resultBack      = document.getElementById("resultBackToDashboard");
+      const resultBackPrimary = document.getElementById("resultBackPrimary");
+
+      const currentQuizTitle = document.getElementById("currentQuizTitle");
+      const progressBar      = document.getElementById("progressBar");
+      const counterEl        = document.getElementById("questionCounter");
+      const questionText     = document.getElementById("questionText");
+      const optionsList      = document.getElementById("optionsList");
+      const feedbackBox      = document.getElementById("feedbackBox");
+      const feedbackTitle    = document.getElementById("feedbackTitle");
+      const feedbackText     = document.getElementById("feedbackText");
+      const nextBtn          = document.getElementById("nextBtn");
 
       const lockedBanner   = document.getElementById("lockedBanner");
-      const resultCard     = document.getElementById("resultCard");
-      const scoreCircle    = document.getElementById("scoreCircle");
+      const resultQuizName = document.getElementById("resultQuizName");
+      const resultDate     = document.getElementById("resultDate");
       const scorePercent   = document.getElementById("scorePercent");
       const scoreText      = document.getElementById("scoreText");
-      const resultQuizName = document.getElementById("resultQuizName");
+      const scoreBar       = document.getElementById("scoreBar");
       const resultMessage  = document.getElementById("resultMessage");
       const reviewToggle   = document.getElementById("reviewToggle");
       const reviewSection  = document.getElementById("reviewSection");
@@ -521,34 +518,34 @@
       const printBtn       = document.getElementById("printBtn");
 
       /* ---------- state ---------- */
-      let currentQuiz   = null;      // active quiz object
+      let currentQuiz   = null;
       let currentIndex  = 0;
       let answers       = [];
       let hasAnswered   = false;
       let optionButtons = [];
 
       const LETTERS = ["A", "B", "C", "D", "E", "F"];
-      const CIRCUMFERENCE = 326.73; // 2 * PI * 52
 
       /* ---------- class strings ---------- */
-      const OPTION_BASE = "flex w-full items-center gap-3 rounded-xl border bg-white p-3.5 text-left transition sm:p-4";
-      const OPTION_IDLE = OPTION_BASE + " border-slate-200 cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/70 active:scale-[.99]";
-      const OPTION_OK   = OPTION_BASE + " border-emerald-500 bg-emerald-50 ring-2 ring-emerald-500/25";
-      const OPTION_BAD  = OPTION_BASE + " border-rose-500 bg-rose-50 ring-2 ring-rose-500/25";
+      const OPTION_BASE = "flex w-full items-center gap-3 rounded-md border bg-white p-3 text-left transition sm:p-3.5";
+      const OPTION_IDLE = OPTION_BASE + " border-slate-200 cursor-pointer hover:border-slate-400 hover:bg-slate-50 active:bg-slate-100";
+      const OPTION_OK   = OPTION_BASE + " border-emerald-600 bg-emerald-50/60";
+      const OPTION_BAD  = OPTION_BASE + " border-rose-600 bg-rose-50/60";
       const OPTION_DIM  = OPTION_BASE + " border-slate-200 opacity-45";
 
-      const BADGE_BASE = "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm font-bold";
-      const BADGE_IDLE = BADGE_BASE + " border-slate-300 bg-slate-100 text-slate-500";
-      const BADGE_OK   = BADGE_BASE + " border-emerald-500 bg-emerald-500 text-white";
-      const BADGE_BAD  = BADGE_BASE + " border-rose-500 bg-rose-500 text-white";
+      const BADGE_BASE = "flex h-6 w-6 shrink-0 items-center justify-center rounded border text-xs font-semibold";
+      const BADGE_IDLE = BADGE_BASE + " border-slate-300 bg-white text-slate-500";
+      const BADGE_OK   = BADGE_BASE + " border-emerald-600 bg-emerald-600 text-white";
+      const BADGE_BAD  = BADGE_BASE + " border-rose-600 bg-rose-600 text-white";
 
-      const FEEDBACK_OK  = "mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3.5 text-sm sm:p-4";
-      const FEEDBACK_BAD = "mt-5 rounded-xl border border-rose-200 bg-rose-50 p-3.5 text-sm sm:p-4";
+      const FEEDBACK_IDLE = "mt-5 hidden border-l-2 pl-4";
+      const FEEDBACK_OK   = "mt-5 border-l-2 border-emerald-600 pl-4";
+      const FEEDBACK_BAD  = "mt-5 border-l-2 border-rose-600 pl-4";
 
-      const CARD_DONE = "rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm";
-      const CARD_READY = "rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition";
+      const BTN_PRIMARY = "rounded-md bg-slate-900 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2";
+      const BTN_SECONDARY = "rounded-md border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2";
 
-      /* ---------- helpers ---------- */
+      /* ---------- storage helpers ---------- */
       function safeGet(key) {
         try { return localStorage.getItem(key); } catch (e) { return null; }
       }
@@ -556,34 +553,25 @@
         try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
       }
 
-      function loadSavedResult(storageKey) {
-        const raw = safeGet(storageKey);
+      function loadSavedResult(quiz) {
+        const raw = safeGet(quiz.storageKey);
         if (!raw) return null;
         try {
           const data = JSON.parse(raw);
-          if (!data || data.total !== currentQuiz.questions.length) return null;
+          if (!data || data.total !== quiz.questions.length) return null;
           return data;
         } catch (e) {
           return null;
         }
       }
 
+      /* ---------- helpers ---------- */
       function show(screen) {
         [dashboardScreen, quizScreen, resultScreen].forEach(function (s) {
           s.classList.add("hidden");
         });
         screen.classList.remove("hidden");
         window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-
-      function replayAnimation(el, cls) {
-        el.classList.remove(cls);
-        void el.offsetWidth;
-        el.classList.add(cls);
-      }
-
-      function plural(n, word) {
-        return n + " " + word + (n === 1 ? "" : "s");
       }
 
       function formatDate(iso) {
@@ -593,15 +581,36 @@
         return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
       }
 
-      /* ---------- dashboard ---------- */
-      function countCompleted() {
-        return QUIZZES.filter(function (q) { return !!safeGet(q.storageKey); }).length;
+      function quizCode(quiz) {
+        return quiz.id.split("-")[0].toUpperCase();
       }
 
-      function updateDashboardStats() {
-        const done = countCompleted();
-        const total = QUIZZES.length;
-        portalStats.textContent = done + " of " + total + " completed · one attempt per quiz per browser";
+      function percentOf(saved, quiz) {
+        const total = saved.total || quiz.questions.length;
+        return Math.round(((saved.score || 0) / total) * 100);
+      }
+
+      function barColour(percent) {
+        if (percent >= 80) return "bg-emerald-600";
+        if (percent >= 60) return "bg-slate-900";
+        if (percent >= 40) return "bg-amber-500";
+        return "bg-rose-600";
+      }
+
+      /* ---------- dashboard ---------- */
+      function countCompleted() {
+        return QUIZZES.filter(function (q) { return !!loadSavedResult(q); }).length;
+      }
+
+      function updateStats() {
+        portalStats.textContent = countCompleted() + " of " + QUIZZES.length + " completed";
+      }
+
+      function makeMark(quiz, sizeClass) {
+        const mark = document.createElement("div");
+        mark.className = "flex shrink-0 items-center justify-center rounded border border-slate-200 bg-slate-50 font-mono font-semibold tracking-wide text-slate-600 " + sizeClass;
+        mark.textContent = quizCode(quiz);
+        return mark;
       }
 
       function renderDashboard() {
@@ -609,115 +618,134 @@
         historyList.innerHTML = "";
 
         QUIZZES.forEach(function (quiz) {
-          const saved = loadSavedResult(quiz.storageKey);
+          const saved = loadSavedResult(quiz);
           const isDone = !!saved;
 
-          const card = document.createElement("article");
-          card.className = isDone ? CARD_DONE : CARD_READY;
+          /* --- quiz row --- */
+          const row = document.createElement("div");
+          row.className = "flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:px-5";
 
-          const iconColor = quiz.color === "indigo"   ? "bg-indigo-500/10 text-indigo-600"
-                          : quiz.color === "emerald"  ? "bg-emerald-500/10 text-emerald-600"
-                          : "bg-amber-500/10 text-amber-600";
+          row.appendChild(makeMark(quiz, "h-10 w-10 text-[11px]"));
 
-          const header = document.createElement("div");
-          header.className = "flex items-center gap-3 mb-2";
-          const icon = document.createElement("span");
-          icon.className = "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl " + iconColor + " text-xl shadow-lg shadow-" + quiz.color + "-500/30";
-          icon.textContent = quiz.icon;
-          header.appendChild(icon);
+          const info = document.createElement("div");
+          info.className = "min-w-0 flex-1";
 
-          const title = document.createElement("h3");
-          title.className = "text-lg font-bold text-slate-900";
+          const titleRow = document.createElement("div");
+          titleRow.className = "flex flex-wrap items-center gap-2";
+
+          const title = document.createElement("h2");
+          title.className = "text-sm font-semibold text-slate-900";
           title.textContent = quiz.title;
-          header.appendChild(title);
+          titleRow.appendChild(title);
 
-          card.appendChild(header);
+          const badge = document.createElement("span");
+          badge.className = "rounded border px-1.5 py-0.5 text-[11px] font-medium " +
+            (isDone
+              ? "border-slate-200 bg-slate-50 text-slate-500"
+              : "border-slate-200 bg-white text-slate-400");
+          badge.textContent = isDone ? "Completed" : "Not started";
+          titleRow.appendChild(badge);
 
-          const sub = document.createElement("p");
-          sub.className = "text-sm text-slate-500 mb-3";
-          sub.textContent = quiz.subtitle;
-          card.appendChild(sub);
+          info.appendChild(titleRow);
 
-          const qCount = document.createElement("p");
-          qCount.className = "text-xs font-mono text-slate-400 mb-4";
-          qCount.textContent = quiz.questions.length + " questions · " + (isDone ? "completed " + formatDate(saved.date) : "not started");
-          card.appendChild(qCount);
+          const subtitle = document.createElement("p");
+          subtitle.className = "mt-0.5 text-sm text-slate-500";
+          subtitle.textContent = quiz.subtitle;
+          info.appendChild(subtitle);
+
+          const meta = document.createElement("p");
+          meta.className = "mt-1 text-xs text-slate-400";
+          meta.textContent = quiz.questions.length + " questions" +
+            (isDone ? " · Completed " + formatDate(saved.date) : "");
+          info.appendChild(meta);
+
+          row.appendChild(info);
+
+          const actions = document.createElement("div");
+          actions.className = "flex items-center gap-3 sm:shrink-0 sm:justify-end";
+
+          if (isDone) {
+            const pct = document.createElement("span");
+            pct.className = "text-sm font-semibold tabular-nums text-slate-900";
+            pct.textContent = percentOf(saved, quiz) + "%";
+            actions.appendChild(pct);
+          }
 
           const btn = document.createElement("button");
           btn.type = "button";
+          btn.className = "w-full sm:w-auto " + (isDone ? BTN_SECONDARY : BTN_PRIMARY);
+          btn.textContent = isDone ? "View result" : "Start quiz";
+          btn.addEventListener("click", function () {
+            if (isDone) openSavedResult(quiz);
+            else startQuiz(quiz);
+          });
+          actions.appendChild(btn);
+
+          row.appendChild(actions);
+          quizGrid.appendChild(row);
+
+          /* --- history row --- */
           if (isDone) {
-            btn.className = "w-full rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-200 focus:outline-none focus:ring-4 focus:ring-slate-400/20 active:scale-[.99]";
-            btn.textContent = "View result";
-            btn.addEventListener("click", function () { startQuiz(quiz, true); });
-          } else {
-            btn.className = "w-full rounded-xl border border-" + quiz.color + "-200 bg-" + quiz.color + "-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-" + quiz.color + "-500/30 transition hover:bg-" + quiz.color + "-700 focus:outline-none focus:ring-4 focus:ring-" + quiz.color + "-500/30 active:scale-[.99]";
-            btn.textContent = "Start quiz";
-            btn.addEventListener("click", function () { startQuiz(quiz, false); });
-          }
-          card.appendChild(btn);
+            const item = document.createElement("button");
+            item.type = "button";
+            item.className = "flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-slate-50 focus-visible:outline-none focus-visible:bg-slate-50 sm:px-5";
 
-          quizGrid.appendChild(card);
+            item.appendChild(makeMark(quiz, "h-8 w-8 text-[10px]"));
 
-          // history panel entry
-          if (isDone) {
-            const score = saved.score || 0;
-            const total = saved.total || quiz.questions.length;
-            const percent = Math.round((score / total) * 100);
+            const hInfo = document.createElement("div");
+            hInfo.className = "min-w-0 flex-1";
+            const hTitle = document.createElement("p");
+            hTitle.className = "text-sm font-medium text-slate-900";
+            hTitle.textContent = quiz.title;
+            const hMeta = document.createElement("p");
+            hMeta.className = "text-xs text-slate-500";
+            hMeta.textContent = (saved.score || 0) + " / " + (saved.total || quiz.questions.length) +
+              " correct · " + formatDate(saved.date);
+            hInfo.appendChild(hTitle);
+            hInfo.appendChild(hMeta);
+            item.appendChild(hInfo);
 
-            const item = document.createElement("div");
-            item.className = "flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-3";
+            const hPct = document.createElement("span");
+            hPct.className = "text-sm font-semibold tabular-nums text-slate-900";
+            hPct.textContent = percentOf(saved, quiz) + "%";
+            item.appendChild(hPct);
 
-            const icon2 = document.createElement("span");
-            icon2.className = "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg " + iconColor + " text-sm";
-            icon2.textContent = quiz.icon;
-            item.appendChild(icon2);
-
-            const info = document.createElement("div");
-            info.className = "min-w-0 flex-1";
-            const itemTitle = document.createElement("div");
-            itemTitle.className = "text-sm font-semibold text-slate-800";
-            itemTitle.textContent = quiz.title;
-            const itemMeta = document.createElement("div");
-            itemMeta.className = "text-xs text-slate-500";
-            itemMeta.textContent = score + " / " + total + " · " + formatDate(saved.date);
-            info.appendChild(itemTitle);
-            info.appendChild(itemMeta);
-            item.appendChild(info);
-
-            const pct = document.createElement("span");
-            pct.className = "text-sm font-bold text-slate-700";
-            pct.textContent = percent + "%";
-            item.appendChild(pct);
-
+            item.addEventListener("click", function () { openSavedResult(quiz); });
             historyList.appendChild(item);
           }
         });
 
-        // empty history state
         if (historyList.children.length === 0) {
           const empty = document.createElement("p");
-          empty.className = "text-sm text-slate-400 text-center py-2";
+          empty.className = "px-4 py-6 text-center text-sm text-slate-400";
           empty.textContent = "No completed quizzes yet.";
           historyList.appendChild(empty);
         }
 
-        updateDashboardStats();
+        updateStats();
       }
 
       historyToggle.addEventListener("click", function () {
         const isHidden = historyPanel.classList.contains("hidden");
         historyPanel.classList.toggle("hidden", !isHidden);
-        historyToggle.textContent = isHidden ? "Hide history" : "View history";
+        historyToggle.textContent = isHidden ? "Hide history" : "Show history";
         if (isHidden) historyPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
 
-      /* ---------- quiz flow ---------- */
-      function startQuiz(quiz, isRevisit) {
+      /* ---------- navigation / flow ---------- */
+      function openSavedResult(quiz) {
+        const saved = loadSavedResult(quiz);
+        if (!saved) { startQuiz(quiz); return; }
+        currentQuiz = quiz;
+        document.title = quiz.title + " · Quiz Portal";
+        showResult(saved, true);
+      }
+
+      function startQuiz(quiz) {
         currentQuiz = quiz;
         currentIndex = 0;
         answers = new Array(quiz.questions.length).fill(-1);
         hasAnswered = false;
-
         currentQuizTitle.textContent = quiz.title;
         document.title = quiz.title + " · Quiz Portal";
         show(quizScreen);
@@ -729,16 +757,14 @@
         hasAnswered = false;
 
         counterEl.textContent = "Question " + (currentIndex + 1) + " of " + currentQuiz.questions.length;
-        const pct = Math.round((currentIndex / currentQuiz.questions.length) * 100);
-        progressBar.style.width = pct + "%";
+        progressBar.style.width = Math.round((currentIndex / currentQuiz.questions.length) * 100) + "%";
 
         questionText.textContent = q.text;
 
-        feedbackBox.classList.add("hidden");
-        feedbackBox.className = "mt-5 hidden rounded-xl border p-3.5 text-sm sm:p-4";
+        feedbackBox.className = FEEDBACK_IDLE;
 
         nextBtn.disabled = true;
-        nextBtn.textContent = (currentIndex === currentQuiz.questions.length - 1) ? "See my score" : "Next question";
+        nextBtn.textContent = (currentIndex === currentQuiz.questions.length - 1) ? "See result" : "Next question";
 
         optionsList.innerHTML = "";
         optionButtons = [];
@@ -753,7 +779,7 @@
           badge.textContent = LETTERS[index] || String(index + 1);
 
           const label = document.createElement("span");
-          label.className = "font-mono text-[15px] font-semibold text-slate-800 break-all sm:text-base";
+          label.className = "font-mono text-sm font-medium text-slate-800 break-all";
           label.textContent = option;
 
           btn.appendChild(badge);
@@ -763,8 +789,6 @@
           optionsList.appendChild(btn);
           optionButtons.push({ btn: btn, badge: badge });
         });
-
-        replayAnimation(questionCard, "animate-fade-in-up");
       }
 
       function selectOption(index) {
@@ -790,12 +814,12 @@
         });
 
         feedbackBox.className = isCorrect ? FEEDBACK_OK : FEEDBACK_BAD;
-        feedbackTitle.className = "flex items-center gap-2 font-bold " + (isCorrect ? "text-emerald-700" : "text-rose-700");
-        feedbackTitle.textContent = isCorrect ? "✅ Correct!" : "❌ Not quite";
-        feedbackText.className = "mt-1.5 leading-relaxed " + (isCorrect ? "text-emerald-800" : "text-rose-800");
+        feedbackTitle.className = "text-sm font-semibold " + (isCorrect ? "text-emerald-700" : "text-rose-700");
+        feedbackTitle.textContent = isCorrect ? "Correct" : "Incorrect";
+        feedbackText.className = "mt-1 text-sm leading-relaxed text-slate-600";
         feedbackText.textContent = isCorrect
           ? q.explain
-          : "The correct answer is " + (LETTERS[q.answer] || "") + ". " + q.explain;
+          : "Correct answer: " + (LETTERS[q.answer] || "") + ". " + q.explain;
 
         nextBtn.disabled = false;
       }
@@ -822,7 +846,7 @@
         }
       });
 
-      /* ---------- finish + save ---------- */
+      /* ---------- finish ---------- */
       function finish() {
         let score = 0;
         answers.forEach(function (a, i) {
@@ -842,62 +866,46 @@
         showResult(result, false);
       }
 
-      /* ---------- result screen ---------- */
+      /* ---------- result ---------- */
       function showResult(result, isRevisit) {
         const total = result.total || currentQuiz.questions.length;
         const score = result.score || 0;
         const percent = Math.round((score / total) * 100);
 
         lockedBanner.classList.toggle("hidden", !isRevisit);
-        lockedBanner.classList.toggle("flex", isRevisit);
 
-        resultQuizName.textContent = currentQuiz.title + (isRevisit ? " · Completed " + formatDate(result.date) : "");
+        resultQuizName.textContent = currentQuiz.title;
+        resultDate.textContent = isRevisit ? "Completed " + formatDate(result.date) : "";
+        resultDate.classList.toggle("hidden", !isRevisit);
+
         scoreText.textContent = score + " / " + total + " correct";
         resultMessage.textContent = getMessage(percent);
 
-        let colour = "#f43f5e";
-        if (percent >= 80) colour = "#10b981";
-        else if (percent >= 60) colour = "#6366f1";
-        else if (percent >= 40) colour = "#f59e0b";
+        scoreBar.className = "h-full rounded-full transition-all duration-700 ease-out " + barColour(percent);
+        scoreBar.style.width = "0%";
+        scorePercent.textContent = percent + "%";
 
-        scoreCircle.setAttribute("stroke", colour);
-        scoreCircle.setAttribute("stroke-dashoffset", CIRCUMFERENCE);
-
-        scorePercent.textContent = "0%";
         reviewSection.classList.add("hidden");
         reviewToggle.textContent = "Show answers review";
 
         show(resultScreen);
-        replayAnimation(resultCard, "animate-fade-in-up");
 
         setTimeout(function () {
-          scoreCircle.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE * (1 - percent / 100)));
-          countUp(percent, 900);
-        }, 120);
+          scoreBar.style.width = percent + "%";
+        }, 100);
 
-        renderReview(result.answers || [], total);
-      }
-
-      function countUp(target, duration) {
-        const start = performance.now();
-        function step(now) {
-          const t = Math.min((now - start) / duration, 1);
-          const value = Math.round(t * target);
-          scorePercent.textContent = value + "%";
-          if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
+        renderReview(result.answers || []);
       }
 
       function getMessage(percent) {
-        if (percent === 100) return "Perfect score! 🎉 You are a star — nothing to fix here.";
-        if (percent >= 80) return "Great job! 🌟 You really know this topic.";
-        if (percent >= 60) return "Good work! 👍 Read the review below and you will get the rest next time.";
-        if (percent >= 40) return "Keep practising 💪 Open the review to see what to fix.";
-        return "Nice start! 🌱 Open the review below, look at the correct answers, then ask your teacher for help.";
+        if (percent === 100) return "Perfect score. All answers were correct.";
+        if (percent >= 80) return "Strong result. Review the questions you missed below.";
+        if (percent >= 60) return "Passing result. Review the questions you missed below.";
+        if (percent >= 40) return "Below passing. Review the answers below before moving on.";
+        return "Review the answers below and speak with your instructor before moving on.";
       }
 
-      function renderReview(savedAnswers, total) {
+      function renderReview(savedAnswers) {
         reviewList.innerHTML = "";
 
         currentQuiz.questions.forEach(function (q, i) {
@@ -905,24 +913,33 @@
           const isCorrect = chosen === q.answer;
 
           const item = document.createElement("div");
-          item.className = "rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm " +
-            (isCorrect ? "border-l-4 border-l-emerald-500" : "border-l-4 border-l-rose-500");
+          item.className = "px-4 py-4 sm:px-5";
 
-          const head = document.createElement("p");
-          head.className = "flex gap-2 text-sm font-bold text-slate-800";
+          const head = document.createElement("div");
+          head.className = "flex items-start justify-between gap-3";
+
+          const qLine = document.createElement("p");
+          qLine.className = "flex gap-2 text-sm font-medium text-slate-900";
           const num = document.createElement("span");
-          num.className = "shrink-0 text-slate-400";
-          num.textContent = (i + 1) + ".";
+          num.className = "shrink-0 font-mono text-xs leading-5 text-slate-400";
+          num.textContent = String(i + 1).padStart(2, "0");
           const qText = document.createElement("span");
           qText.textContent = q.text;
-          head.appendChild(num);
-          head.appendChild(qText);
+          qLine.appendChild(num);
+          qLine.appendChild(qText);
+          head.appendChild(qLine);
+
+          const status = document.createElement("span");
+          status.className = "shrink-0 text-xs font-semibold " + (isCorrect ? "text-emerald-700" : "text-rose-700");
+          status.textContent = isCorrect ? "Correct" : "Incorrect";
+          head.appendChild(status);
+
           item.appendChild(head);
 
           const yourRow = document.createElement("p");
-          yourRow.className = "mt-2.5 text-sm " + (isCorrect ? "text-emerald-700" : "text-rose-700");
+          yourRow.className = "mt-2 pl-8 text-sm text-slate-600";
           const yourLabel = document.createElement("span");
-          yourLabel.className = "font-semibold";
+          yourLabel.className = "font-medium text-slate-500";
           yourLabel.textContent = "Your answer: ";
           const yourCode = document.createElement("code");
           yourCode.className = "rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[13px] text-slate-800";
@@ -933,10 +950,10 @@
 
           if (!isCorrect) {
             const okRow = document.createElement("p");
-            okRow.className = "mt-1.5 text-sm text-emerald-700";
+            okRow.className = "mt-1.5 pl-8 text-sm text-slate-600";
             const okLabel = document.createElement("span");
-            okLabel.className = "font-semibold";
-            okLabel.textContent = "Correct: ";
+            okLabel.className = "font-medium text-slate-500";
+            okLabel.textContent = "Correct answer: ";
             const okCode = document.createElement("code");
             okCode.className = "rounded bg-emerald-50 px-1.5 py-0.5 font-mono text-[13px] text-emerald-800";
             okCode.textContent = q.options[q.answer];
@@ -946,7 +963,7 @@
           }
 
           const why = document.createElement("p");
-          why.className = "mt-2 text-[13px] leading-relaxed text-slate-500";
+          why.className = "mt-1.5 pl-8 text-sm leading-relaxed text-slate-500";
           why.textContent = q.explain;
           item.appendChild(why);
 
@@ -967,8 +984,8 @@
         window.print();
       });
 
-      /* ---------- navigation ---------- */
-      backToDashboard.addEventListener("click", function () {
+      /* ---------- back to dashboard ---------- */
+      function goHome() {
         currentQuiz = null;
         currentIndex = 0;
         answers = [];
@@ -976,20 +993,15 @@
         document.title = "Quiz Portal";
         show(dashboardScreen);
         renderDashboard();
-      });
+      }
 
-      resultBackToDash.addEventListener("click", function () {
-        currentQuiz = null;
-        currentIndex = 0;
-        answers = [];
-        hasAnswered = false;
-        document.title = "Quiz Portal";
-        show(dashboardScreen);
-        renderDashboard();
-      });
+      backToDashboard.addEventListener("click", goHome);
+      resultBack.addEventListener("click", goHome);
+      resultBackPrimary.addEventListener("click", goHome);
 
       /* ---------- boot ---------- */
       (function init() {
+        document.title = "Quiz Portal";
         show(dashboardScreen);
         renderDashboard();
       })();
