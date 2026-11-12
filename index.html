@@ -433,6 +433,194 @@
         ]
       },
       {
+        id: "html-css-advanced",
+        storageKey: "quiz:html-css-advanced:v1",
+        title: "HTML & CSS — Intermediate",
+        subtitle: "Forms · Accessibility · Flexbox · Grid · Specificity",
+        questions: [
+          {
+            text: "Which doctype declaration triggers standards mode in modern browsers?",
+            options: ["<!DOCTYPE html>", "<!DOCTYPE html5>", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">", "<!DOCTYPE html SYSTEM>"],
+            answer: 0,
+            explain: "<!DOCTYPE html> is the HTML5 doctype and puts the browser in standards mode."
+          },
+          {
+            text: "Which attribute specifies the destination URL of a hyperlink?",
+            options: ["src", "href", "link", "url"],
+            answer: 1,
+            explain: "The href attribute sets the URL that an <a> link points to."
+          },
+          {
+            text: "Which tag is used to create a hyperlink to another page?",
+            options: ["<link>", "<a>", "<href>", "<url>"],
+            answer: 1,
+            explain: "The <a> (anchor) tag creates hyperlinks."
+          },
+          {
+            text: "Which input type provides built-in email format validation and an email-friendly on-screen keyboard on mobile?",
+            options: ["type=\"text\" pattern=\"email\"", "type=\"email\"", "type=\"mail\"", "type=\"text\" inputmode=\"email\""],
+            answer: 1,
+            explain: "type=\"email\" enables built-in validation and an appropriate mobile keyboard."
+          },
+          {
+            text: "Which attribute makes a form field mandatory before submission?",
+            options: ["mandatory", "validate", "required", "needed"],
+            answer: 2,
+            explain: "The required boolean attribute prevents submission when the field is empty."
+          },
+          {
+            text: "For a <label> to be programmatically associated with an <input>, the label's for attribute must match the input's:",
+            options: ["name", "id", "class", "value"],
+            answer: 1,
+            explain: "The for attribute references the input's id, not its name."
+          },
+          {
+            text: "What is the purpose of <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">?",
+            options: ["Sets the page title", "Controls layout on mobile devices", "Enables dark mode", "Loads CSS"],
+            answer: 1,
+            explain: "The viewport meta tag controls how the page is sized and scaled on mobile devices."
+          },
+          {
+            text: "For a purely decorative image, the recommended alt attribute value is:",
+            options: ["alt=\"image\"", "alt=\"decorative\"", "alt=\"\"", "omit the alt attribute"],
+            answer: 2,
+            explain: "An empty alt (alt=\"\") tells assistive tech to ignore the decorative image."
+          },
+          {
+            text: "Which attribute exposes an element's role to assistive technologies when native semantics are insufficient?",
+            options: ["aria-label", "role", "tabindex", "data-role"],
+            answer: 1,
+            explain: "The role attribute defines the ARIA role of an element."
+          },
+          {
+            text: "Which element allows serving different image sources based on media conditions or format support?",
+            options: ["<srcset>", "<picture>", "<responsive>", "<media>"],
+            answer: 1,
+            explain: "<picture> contains <source> elements and an <img> fallback."
+          },
+          {
+            text: "Which CSS property controls the stacking order of positioned elements?",
+            options: ["stack-order", "z-index", "layer", "depth"],
+            answer: 1,
+            explain: "z-index sets the stack level of a positioned element."
+          },
+          {
+            text: "For z-index to take effect, the element must have a position value other than:",
+            options: ["relative", "absolute", "fixed", "static"],
+            answer: 3,
+            explain: "z-index only applies to positioned elements (not static)."
+          },
+          {
+            text: "Which position value keeps an element in normal flow but offsets it relative to itself?",
+            options: ["absolute", "fixed", "relative", "sticky"],
+            answer: 2,
+            explain: "position: relative offsets the element from its normal position."
+          },
+          {
+            text: "An absolutely positioned element is positioned relative to its nearest:",
+            options: ["parent element", "positioned ancestor", "root element", "sibling"],
+            answer: 1,
+            explain: "It is positioned relative to the nearest positioned (non-static) ancestor."
+          },
+          {
+            text: "Which box-sizing value makes width include padding and border?",
+            options: ["content-box", "border-box", "padding-box", "margin-box"],
+            answer: 1,
+            explain: "border-box includes padding and border in the element's width."
+          },
+          {
+            text: "When two vertically adjacent block elements have margins, the resulting margin is:",
+            options: ["sum of both", "larger of the two", "smaller of the two", "zero"],
+            answer: 1,
+            explain: "Vertical margins collapse to the larger of the two values."
+          },
+          {
+            text: "In Flexbox, which property aligns items along the main axis?",
+            options: ["align-items", "justify-content", "align-content", "place-items"],
+            answer: 1,
+            explain: "justify-content distributes space along the main axis."
+          },
+          {
+            text: "Which flex-direction value stacks flex items vertically from top to bottom?",
+            options: ["row", "row-reverse", "column", "column-reverse"],
+            answer: 2,
+            explain: "flex-direction: column lays items out vertically."
+          },
+          {
+            text: "Which property in CSS Grid defines the number and size of columns?",
+            options: ["grid-columns", "grid-template-columns", "grid-column-count", "columns"],
+            answer: 1,
+            explain: "grid-template-columns defines the grid's column tracks."
+          },
+          {
+            text: "Which pseudo-element inserts generated content before an element and requires the content property to display?",
+            options: ["::before (requires content)", "::after (requires content)", "::first-letter", "::marker"],
+            answer: 0,
+            explain: "::before inserts content before the element; content is required."
+          },
+          {
+            text: "The :nth-child(2n) selector matches:",
+            options: ["odd children", "even children", "first child", "last child"],
+            answer: 1,
+            explain: "2n selects every second child, i.e. even children."
+          },
+          {
+            text: "Which media query applies styles when viewport width is 600px or less?",
+            options: ["@media (min-width: 600px)", "@media (max-width: 600px)", "@media (width <= 600px) only", "@media screen and (width: 600px)"],
+            answer: 1,
+            explain: "max-width: 600px applies at 600px and below."
+          },
+          {
+            text: "How do you define and use a CSS custom property named --primary?",
+            options: ["var(--primary): #000; color: --primary;", "--primary: #000; color: var(--primary);", "$primary: #000; color: $primary;", "@primary: #000; color: @primary;"],
+            answer: 1,
+            explain: "Custom properties are defined with --name and read with var()."
+          },
+          {
+            text: "Which property sets the space between flex or grid items?",
+            options: ["margin", "gap", "spacing", "padding"],
+            answer: 1,
+            explain: "gap sets the gutter between flex/grid items."
+          },
+          {
+            text: "Which property rounds the corners of an element?",
+            options: ["corner-radius", "border-radius", "round", "radius"],
+            answer: 1,
+            explain: "border-radius rounds the corners of an element's box."
+          },
+          {
+            text: "Which value of the display property removes an element from layout and collapses its space?",
+            options: ["none", "hidden", "invisible", "collapse"],
+            answer: 0,
+            explain: "display: none removes the element from layout entirely."
+          },
+          {
+            text: "Which selector has higher specificity: #nav .item or div.item?",
+            options: ["#nav .item", "div.item", "equal", "depends on order"],
+            answer: 0,
+            explain: "An id selector (0,1,0) beats an element selector (0,0,2)."
+          },
+          {
+            text: "The :not(:last-child) selector selects:",
+            options: ["only the last child", "all children except the last", "the parent", "nothing"],
+            answer: 1,
+            explain: ":not(:last-child) matches every child except the last one."
+          },
+          {
+            text: "Which property maintains an element's width-to-height ratio?",
+            options: ["ratio", "aspect-ratio", "object-fit", "box-ratio"],
+            answer: 1,
+            explain: "aspect-ratio sets a preferred aspect ratio for the box."
+          },
+          {
+            text: "Which value of position fixes an element relative to the viewport?",
+            options: ["absolute", "fixed", "relative", "static"],
+            answer: 1,
+            explain: "position: fixed anchors the element to the viewport."
+          }
+        ]
+      },
+      {
         id: "js-basics",
         storageKey: "quiz:js-basics:v1",
         title: "JavaScript Basics",
