@@ -434,189 +434,189 @@
       },
       {
         id: "html-css-advanced",
-        storageKey: "quiz:html-css-advanced:v1",
+        storageKey: "quiz:html-css-advanced:v2",
         title: "HTML & CSS — Intermediate",
-        subtitle: "Forms · Accessibility · Flexbox · Grid · Specificity",
+        subtitle: "Display · Fonts · Tables · Forms · Accessibility · Specificity",
         questions: [
           {
             text: "Which doctype declaration triggers standards mode in modern browsers?",
-            options: ["<!DOCTYPE html>", "<!DOCTYPE html5>", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">", "<!DOCTYPE html SYSTEM>"],
+            options: ["<!DOCTYPE html>","<!DOCTYPE html5>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">","<!DOCTYPE html SYSTEM>"],
             answer: 0,
             explain: "<!DOCTYPE html> is the HTML5 doctype and puts the browser in standards mode."
           },
           {
             text: "Which attribute specifies the destination URL of a hyperlink?",
-            options: ["src", "href", "link", "url"],
+            options: ["src","href","link","url"],
             answer: 1,
             explain: "The href attribute sets the URL that an <a> link points to."
           },
           {
             text: "Which tag is used to create a hyperlink to another page?",
-            options: ["<link>", "<a>", "<href>", "<url>"],
+            options: ["<link>","<a>","<href>","<url>"],
             answer: 1,
             explain: "The <a> (anchor) tag creates hyperlinks."
           },
           {
             text: "Which input type provides built-in email format validation and an email-friendly on-screen keyboard on mobile?",
-            options: ["type=\"text\" pattern=\"email\"", "type=\"email\"", "type=\"mail\"", "type=\"text\" inputmode=\"email\""],
+            options: ["type=\"text\" pattern=\"email\"","type=\"email\"","type=\"mail\"","type=\"text\" inputmode=\"email\""],
             answer: 1,
             explain: "type=\"email\" enables built-in validation and an appropriate mobile keyboard."
           },
           {
             text: "Which attribute makes a form field mandatory before submission?",
-            options: ["mandatory", "validate", "required", "needed"],
+            options: ["mandatory","validate","required","needed"],
             answer: 2,
             explain: "The required boolean attribute prevents submission when the field is empty."
           },
           {
             text: "For a <label> to be programmatically associated with an <input>, the label's for attribute must match the input's:",
-            options: ["name", "id", "class", "value"],
+            options: ["name","id","class","value"],
             answer: 1,
             explain: "The for attribute references the input's id, not its name."
           },
           {
             text: "What is the purpose of <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">?",
-            options: ["Sets the page title", "Controls layout on mobile devices", "Enables dark mode", "Loads CSS"],
+            options: ["Sets the page title","Controls layout on mobile devices","Enables dark mode","Loads CSS"],
             answer: 1,
             explain: "The viewport meta tag controls how the page is sized and scaled on mobile devices."
           },
           {
-            text: "For a purely decorative image, the recommended alt attribute value is:",
-            options: ["alt=\"image\"", "alt=\"decorative\"", "alt=\"\"", "omit the alt attribute"],
-            answer: 2,
-            explain: "An empty alt (alt=\"\") tells assistive tech to ignore the decorative image."
-          },
-          {
-            text: "Which attribute exposes an element's role to assistive technologies when native semantics are insufficient?",
-            options: ["aria-label", "role", "tabindex", "data-role"],
+            text: "What is the default display value of a <div> element?",
+            options: ["inline","block","inline-block","none"],
             answer: 1,
-            explain: "The role attribute defines the ARIA role of an element."
+            explain: "A <div> is a block element by default: it starts on a new line and fills the width."
           },
           {
-            text: "Which element allows serving different image sources based on media conditions or format support?",
-            options: ["<srcset>", "<picture>", "<responsive>", "<media>"],
+            text: "What is the default display value of a <span> element?",
+            options: ["block","inline","inline-block","grid"],
             answer: 1,
-            explain: "<picture> contains <source> elements and an <img> fallback."
+            explain: "A <span> is inline by default, so it sits inside a line of text."
           },
           {
-            text: "Which CSS property controls the stacking order of positioned elements?",
-            options: ["stack-order", "z-index", "layer", "depth"],
-            answer: 1,
-            explain: "z-index sets the stack level of a positioned element."
-          },
-          {
-            text: "For z-index to take effect, the element must have a position value other than:",
-            options: ["relative", "absolute", "fixed", "static"],
-            answer: 3,
-            explain: "z-index only applies to positioned elements (not static)."
-          },
-          {
-            text: "Which position value keeps an element in normal flow but offsets it relative to itself?",
-            options: ["absolute", "fixed", "relative", "sticky"],
-            answer: 2,
-            explain: "position: relative offsets the element from its normal position."
-          },
-          {
-            text: "An absolutely positioned element is positioned relative to its nearest:",
-            options: ["parent element", "positioned ancestor", "root element", "sibling"],
-            answer: 1,
-            explain: "It is positioned relative to the nearest positioned (non-static) ancestor."
-          },
-          {
-            text: "Which box-sizing value makes width include padding and border?",
-            options: ["content-box", "border-box", "padding-box", "margin-box"],
-            answer: 1,
-            explain: "border-box includes padding and border in the element's width."
-          },
-          {
-            text: "When two vertically adjacent block elements have margins, the resulting margin is:",
-            options: ["sum of both", "larger of the two", "smaller of the two", "zero"],
-            answer: 1,
-            explain: "Vertical margins collapse to the larger of the two values."
-          },
-          {
-            text: "In Flexbox, which property aligns items along the main axis?",
-            options: ["align-items", "justify-content", "align-content", "place-items"],
-            answer: 1,
-            explain: "justify-content distributes space along the main axis."
-          },
-          {
-            text: "Which flex-direction value stacks flex items vertically from top to bottom?",
-            options: ["row", "row-reverse", "column", "column-reverse"],
-            answer: 2,
-            explain: "flex-direction: column lays items out vertically."
-          },
-          {
-            text: "Which property in CSS Grid defines the number and size of columns?",
-            options: ["grid-columns", "grid-template-columns", "grid-column-count", "columns"],
-            answer: 1,
-            explain: "grid-template-columns defines the grid's column tracks."
-          },
-          {
-            text: "Which pseudo-element inserts generated content before an element and requires the content property to display?",
-            options: ["::before (requires content)", "::after (requires content)", "::first-letter", "::marker"],
+            text: "Which attribute provides alternative text for an image so screen readers can read it aloud?",
+            options: ["alt","title","caption","src"],
             answer: 0,
-            explain: "::before inserts content before the element; content is required."
+            explain: "The alt attribute describes the image for people who cannot see it."
           },
           {
-            text: "The :nth-child(2n) selector matches:",
-            options: ["odd children", "even children", "first child", "last child"],
-            answer: 1,
-            explain: "2n selects every second child, i.e. even children."
+            text: "Which attribute gives an element an accessible name when there is no visible text label?",
+            options: ["aria-label","role","tabindex","data-label"],
+            answer: 0,
+            explain: "aria-label provides an accessible name for screen readers."
           },
           {
-            text: "Which media query applies styles when viewport width is 600px or less?",
-            options: ["@media (min-width: 600px)", "@media (max-width: 600px)", "@media (width <= 600px) only", "@media screen and (width: 600px)"],
-            answer: 1,
-            explain: "max-width: 600px applies at 600px and below."
+            text: "Which tag is used to group related form controls together?",
+            options: ["<fieldset>","<group>","<form-group>","<section>"],
+            answer: 0,
+            explain: "<fieldset> groups related inputs and usually holds a <legend> as its caption."
           },
           {
-            text: "How do you define and use a CSS custom property named --primary?",
-            options: ["var(--primary): #000; color: --primary;", "--primary: #000; color: var(--primary);", "$primary: #000; color: $primary;", "@primary: #000; color: @primary;"],
-            answer: 1,
-            explain: "Custom properties are defined with --name and read with var()."
+            text: "Which attribute gives an input the name that is sent to the server when the form is submitted?",
+            options: ["name","id","for","value"],
+            answer: 0,
+            explain: "The name attribute is the key used for the input's value in the submitted data."
           },
           {
-            text: "Which property sets the space between flex or grid items?",
-            options: ["margin", "gap", "spacing", "padding"],
-            answer: 1,
-            explain: "gap sets the gutter between flex/grid items."
+            text: "Which property makes text italic?",
+            options: ["font-style","font-weight","font-italic","text-style"],
+            answer: 0,
+            explain: "font-style: italic makes the text slanted."
+          },
+          {
+            text: "Which display value makes an element start on a new line and fill the available width?",
+            options: ["block","inline","inline-block","flex"],
+            answer: 0,
+            explain: "display: block puts the element on its own line and it fills the width of its parent."
+          },
+          {
+            text: "Which display value keeps an element on the same line as the text around it, so width and height are ignored?",
+            options: ["inline","block","inline-block","none"],
+            answer: 0,
+            explain: "display: inline flows with the surrounding text and cannot take a width or height."
+          },
+          {
+            text: "Which display value flows inline like text but still accepts width, height, and padding?",
+            options: ["inline-block","inline","block","flex"],
+            answer: 0,
+            explain: "display: inline-block keeps the element in the line flow but lets you size it."
+          },
+          {
+            text: "Which property sets the font family (the typeface) of an element?",
+            options: ["font-family","font-type","typeface","font-face"],
+            answer: 0,
+            explain: "font-family sets which font is used, e.g. font-family: Arial, sans-serif;"
+          },
+          {
+            text: "Which property sets the size of the text?",
+            options: ["font-size","text-size","size","font-height"],
+            answer: 0,
+            explain: "font-size sets the text size, e.g. font-size: 16px;"
+          },
+          {
+            text: "Which property makes text bold?",
+            options: ["font-weight","font-style","font-bold","text-weight"],
+            answer: 0,
+            explain: "font-weight: bold (or a number like 700) makes the text bold."
+          },
+          {
+            text: "Which property removes the small gaps between the borders of table cells?",
+            options: ["border-collapse","border-spacing","cell-spacing","table-gap"],
+            answer: 0,
+            explain: "border-collapse: collapse merges cell borders into one shared border."
+          },
+          {
+            text: "Which property controls the space between the lines of a table?",
+            options: ["border-spacing","border-collapse","table-margin","cell-gap"],
+            answer: 0,
+            explain: "border-spacing sets the gap between table cells (and between the table and its border)."
+          },
+          {
+            text: "Which property adds space inside the cells of a table?",
+            options: ["padding","margin","inset","cell-padding"],
+            answer: 0,
+            explain: "padding adds space inside each table cell."
+          },
+          {
+            text: "Which property sets the space between the lines of text?",
+            options: ["line-height","line-spacing","line-gap","line-size"],
+            answer: 0,
+            explain: "line-height sets the height of each line of text."
+          },
+          {
+            text: "Which property adds extra space between individual letters?",
+            options: ["letter-spacing","word-spacing","text-spacing","char-gap"],
+            answer: 0,
+            explain: "letter-spacing increases the space between each character."
+          },
+          {
+            text: "Which tag defines the heading row of a table?",
+            options: ["<thead>","<th>","<header>","<top>"],
+            answer: 0,
+            explain: "<thead> groups the heading row of a table."
           },
           {
             text: "Which property rounds the corners of an element?",
-            options: ["corner-radius", "border-radius", "round", "radius"],
+            options: ["corner-radius","border-radius","round","radius"],
             answer: 1,
             explain: "border-radius rounds the corners of an element's box."
           },
           {
             text: "Which value of the display property removes an element from layout and collapses its space?",
-            options: ["none", "hidden", "invisible", "collapse"],
+            options: ["none","hidden","invisible","collapse"],
             answer: 0,
             explain: "display: none removes the element from layout entirely."
           },
           {
-            text: "Which selector has higher specificity: #nav .item or div.item?",
-            options: ["#nav .item", "div.item", "equal", "depends on order"],
+            text: "Which CSS property adds a border around a table cell?",
+            options: ["border","cell-border","outline","stroke"],
             answer: 0,
-            explain: "An id selector (0,1,0) beats an element selector (0,0,2)."
+            explain: "The border property draws a border around the element."
           },
           {
-            text: "The :not(:last-child) selector selects:",
-            options: ["only the last child", "all children except the last", "the parent", "nothing"],
-            answer: 1,
-            explain: ":not(:last-child) matches every child except the last one."
-          },
-          {
-            text: "Which property maintains an element's width-to-height ratio?",
-            options: ["ratio", "aspect-ratio", "object-fit", "box-ratio"],
-            answer: 1,
-            explain: "aspect-ratio sets a preferred aspect ratio for the box."
-          },
-          {
-            text: "Which value of position fixes an element relative to the viewport?",
-            options: ["absolute", "fixed", "relative", "static"],
-            answer: 1,
-            explain: "position: fixed anchors the element to the viewport."
+            text: "Which selector has the highest specificity?",
+            options: ["#header",".header","header","*"],
+            answer: 0,
+            explain: "An id selector (#header) beats class, element, and universal selectors."
           }
         ]
       },
